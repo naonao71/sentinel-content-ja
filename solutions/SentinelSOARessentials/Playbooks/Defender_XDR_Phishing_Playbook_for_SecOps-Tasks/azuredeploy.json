@@ -1,0 +1,440 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "title": "Incident tasks - Microsoft Defender XDR Phishing Playbook for SecOps",
+    "description": "This playbook add Incident Tasks based on Microsoft Defender XDR Phishing Playbook for SecOps. This playbook will walk the analyst through four stages of responding to a phishing incident: containment, investigation, remediation and prevention. The step-by-step instructions will help you take the required remedial action to protect information and minimize further risks.",
+    "prerequisites": "",
+    "postDeployment": [
+      "1. Add Microsoft Sentinel Responder role to the managed identity.",
+      "2. Assign playbook to the automation rule."
+    ],
+    "prerequisitesDeployTemplateFile": "",
+    "lastUpdateTime": "2023-02-16T00:00:00.000Z",
+    "entities": [],
+    "tags": [
+      "Tasks"
+    ],
+    "support": {
+      "tier": "community",
+      "armtemplate": "Generated from https://github.com/Azure/Azure-Sentinel/tree/master/Tools/Playbook-ARM-Template-Generator"
+    },
+    "author": {
+      "name": "Benji Kovacevic"
+    }
+  },
+  "parameters": {
+    "PlaybookName": {
+      "defaultValue": "Defender_XDR_Phishing_Playbook_for_SecOps-Tasks-JA",
+      "type": "string"
+    }
+  },
+  "variables": {
+    "MicrosoftsentinelConnectionName": "[concat('Microsoftsentinel-', parameters('PlaybookName'))]"
+  },
+  "resources": [
+    {
+      "properties": {
+        "provisioningState": "Succeeded",
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {
+            "$connections": {
+              "defaultValue": {},
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "Microsoft_Sentinel_incident": {
+              "type": "ApiConnectionWebhook",
+              "inputs": {
+                "body": {
+                  "callback_url": "@{listCallbackUrl()}"
+                },
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                  }
+                },
+                "path": "/incident-creation"
+              }
+            }
+          },
+          "actions": {
+            "Condition": {
+              "actions": {
+                "Scope_-_Contain": {
+                  "actions": {
+                    "Add_task_to_incident_-_Contain": {
+                      "runAfter": {
+                        "Compose_-_Contain": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Contain')}</p>",
+                          "taskTitle": "封じ込め"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Contain": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt><b>◆ どの資産が関係していますか？</b></dt>\n<dd>◇ 端末が不審な動作をしていた場合は、Microsoft Defender XDR で<a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts#isolate-devices-from-the-network\">デバイスを隔離</a>するか、<a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation\">Microsoft Sentinel から実行</a>することを検討します。</dd>\n<dt><b>◆ どのユーザー アカウントが関係し、どの権限を持っていますか？</b></dt>\n<dd>◇ リスクを評価するため、まず対象が優先度の高いアカウント・管理職のアカウント・管理者アカウントのいずれかかを確認します。</dd>\n<dt><b>◆ 自動応答によって、すでにどの封じ込めが実行されていますか？</b></dt>\n<dd>◇ 証拠の修復状況はどうなっていますか？</dd>\n<dd>◇ Defender ポータルの「証拠と対応」タブで、<a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/office-365-security/air-review-approve-pending-completed-actions\">承認待ちのアクション</a>を確認します。</dd>"
+                    }
+                  },
+                  "runAfter": {
+                    "Scope_-_Introduction": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Scope"
+                },
+                "Scope_-_Introduction": {
+                  "actions": {
+                    "Add_task_to_incident_-_Introduction": {
+                      "runAfter": {
+                        "Compose_-_Introduction": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Introduction')}</p>",
+                          "taskTitle": "はじめに"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Introduction": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt>フィッシング メールを報告するには、<a target='_blank' href=\"https://go.microsoft.com/fwlink/?linkid=2167511\">Microsoft Defender ポータルから送信</a>して分析を依頼します。確認画面では「ブロックされるべきだった」を選択してください。結果は送信詳細のパネルに表示されます。詳しくは<a target='_blank' href=\"https://go.microsoft.com/fwlink/?linkid=2201181\">手順ガイド</a>を参照してください。</dt>\n<dt><b>この Playbook は、SOC チームがフィッシング インシデントに対応するための 4 段階（封じ込め・調査・修復・予防）を案内します。手順に沿って進めることで、情報を保護し、被害の拡大を抑えられます。</b></dt>\n<dt>準備ができたら「封じ込め」タスクから始めてください。</dt>"
+                    },
+                    "Mark_a_task_as_completed_-_Introduction": {
+                      "runAfter": {
+                        "Add_task_to_incident_-_Introduction": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "taskArmId": "@body('Add_task_to_incident_-_Introduction')?['id']"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CompleteTask"
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "type": "Scope"
+                },
+                "Scope_-_Investigate": {
+                  "actions": {
+                    "Add_task_to_incident_-_Investigate": {
+                      "runAfter": {
+                        "Compose_-_Investigate": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Investigate')}</p>",
+                          "taskTitle": "調査"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Investigate": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt><b>◆ 最初のフィッシング メールを確認します。</b></dt>\n<dd>◇ インシデント キューから該当インシデントを開き、「証拠と対応」タブを選択します。</dd>\n<dd>◇ 該当のメールを見つけて、メール ページを開きます。</dd>\n<dd>◇ メール ヘッダーを確認し、送信者の本当の送信元を特定します。</dd>\n<dd>◇ メールの送信元 IP アドレスを調査します。攻撃者やキャンペーンで使われている IP ですか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- <a target='_blank' href=\"https://security.microsoft.com/threatanalytics3\">脅威分析</a></dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- <a target='_blank' href=\"https://security.microsoft.com/campaigns\">キャンペーン</a></dd>\n<dt><b>◆ メールに URL は含まれていましたか？</b></dt>\n<dd>◇ URL ページを開いて、その URL の評価を確認します。</dd>\n<dt><b>◆ メールに添付ファイルは含まれていましたか？</b></dt>\n<dd>◇ 添付ファイルに悪意のある内容が無いか調べます（PDF、難読化された PowerShell、その他のスクリプトなど）。</dd>\n<dd>◇ デバイスのタイムラインを確認し、ペイロードが端末で実行されたかを判断します。実行されていた場合は、デバイスの隔離を検討します。</dd>\n<dt><b>◆ ユーザーがメールを開いた可能性はありますか？</b></dt>\n<dd>◇ 開いていた場合は、修復を実施します。</dd>\n<dt><b>◆ フィッシング メールを受信したユーザーの一覧を取得します。</b></dt>"
+                    }
+                  },
+                  "runAfter": {
+                    "Scope_-_Contain": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Scope"
+                },
+                "Scope_-_Investigate_involved_users": {
+                  "actions": {
+                    "Add_task_to_incident_-_Investigate_involved_users": {
+                      "runAfter": {
+                        "Compose_-_Investigate_involved_users": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Investigate_involved_users')}</p>",
+                          "taskTitle": "関係ユーザーの調査"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Investigate_involved_users": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt>インシデントに関係する各ユーザーについて、次を確認します。</dt>\n<dt><b>◆ ユーザー アカウントに不審な操作が無いかを調査します。</b></dt>\n<dd>◇ <a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/defender/investigate-users\">Microsoft Defender XDR でユーザーを調査する</a></dd>\n<dd>◇ <a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/investigate-with-ueba\">Microsoft Sentinel UEBA でユーザーを調査する</a></dd>\n<dt><b>◆ そのユーザー アカウントの調査優先度スコアはいくつですか？</b></dt>\n<dd>◇ 不審な操作が確認できた場合は、次の手順を検討します。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- アカウントの利用者本人に連絡する</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- アカウントのパスワードをリセットする</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- 再サインインを求める</dd>\n<dt><b>◆ ユーザー アカウントのメールボックスを調査します。</b></dt>\n<dd>◇ そのアカウントが最後にメールボックスへアクセスした日時を確認します。</dd>\n<dd>◇ メールボックスに代理アクセスが設定されていますか？最近変更されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- 該当する操作名: 'Add-MailboxPermission'、'Add-MailboxFolderPermission'、'Set-MailboxFolderPermission'</dd>\n<dd>◇ メールボックスに転送ルールが設定されていますか？最近追加されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;- 該当する操作名: 'New-InboxRule'、'Set-InboxRule'、'Set-Mailbox'、'Set-TransportRule'、'New-TransportRule'</dd>\n<dt><b>◆ メールに悪意のある URL が含まれていた場合、ユーザーはそのリンクをクリックしましたか？</b></dt>\n<dd>◇ 高度な追求のユーザー クリック テーブルで、クリックの詳細を確認します。</dd>\n<dt><b>◆ メールに添付ファイルが含まれていた場合、ペイロードは実行されましたか？悪意のあるコードが動きましたか？</b></dt>\n<dd>◇ 実行されていた場合は、端末上でファイルを検疫し、デバイスの隔離を検討します。</dd>"
+                    }
+                  },
+                  "runAfter": {
+                    "Scope_-_Investigate": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Scope"
+                },
+                "Scope_-_Prevent": {
+                  "actions": {
+                    "Add_task_to_incident_-_Prevent": {
+                      "runAfter": {
+                        "Compose_-_Prevent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Prevent')}</p>",
+                          "taskTitle": "予防"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Prevent": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt>ポリシーの上書き（オーバーライド）が原因でフィッシング メールが届いた場合は、関連する許可リスト（Exchange トランスポート ルール / IP 許可リスト）から該当の設定を削除すること、および ZAP を有効にすることを検討します。</dt>\n<dt><b>◆ ポリシーの上書きによって生成されるアラート:</b></dt>\n<dd>◇ ETR の上書きによりフィッシングが配信された</dd>\n<dd>◇ IP 許可ポリシーによりフィッシングが配信された</dd>\n<dd>◇ ZAP が無効なためフィッシングが駆除されなかった</dd>\n<dt>詳細は<a target='_blank' href=\"https://learn.microsoft.com/ja-jp/security/operations/incident-response-playbook-phishing\">フィッシングのインシデント対応 Playbook</a> を参照してください。</dt>\n<dt>インシデントの一部として転送アラートを受け取った場合は、送信スパム ポリシーを使って<a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/office-365-security/external-email-forwarding\">外部への転送を防止</a>します。</dt>\n<dt>Microsoft Defender ポータルの<a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/office-365-security/attack-simulation-training-get-started\">攻撃シミュレーション トレーニング</a>を使うと、組織内で現実的な攻撃シナリオを実施できます。この訓練によって、リスクの高い利用者を把握できます。</dt>"
+                    }
+                  },
+                  "runAfter": {
+                    "Scope_-_Remediate": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Scope"
+                },
+                "Scope_-_Remediate": {
+                  "actions": {
+                    "Add_task_to_incident_-_Remediate": {
+                      "runAfter": {
+                        "Compose_-_Remediate": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "body": {
+                          "incidentArmId": "@triggerBody()?['object']?['id']",
+                          "taskDescription": "<p>@{outputs('Compose_-_Remediate')}</p>",
+                          "taskTitle": "修復"
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/Incidents/CreateTask"
+                      }
+                    },
+                    "Compose_-_Remediate": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "<dt><b>◆ インシデントを「True Positive（真陽性）」として分類します。</b></dt>\n<dt><b>◆ 脅威エクスプローラーを使って、すべての受信トレイから悪意のあるメールを削除し、Microsoft へフィッシングとして報告します。</b></dt>\n<dd>◇ <a target='_blank' href=\"https://security.microsoft.com/threatexplorer\">脅威エクスプローラー</a></dd>\n<dt><b>◆ このインシデントで転送ルールが作成されていた場合は、そのルールを削除し、転送先アドレスをブロックします。</b></dt>\n<dt><b>◆ インシデントの証拠を Microsoft へ<a target='_blank' href=\"https://learn.microsoft.com/microsoft-365/security/office-365-security/admin-submission\">提出</a>します。</b></dt>\n<dd>◇ メール</dd>\n<dd>◇ 添付ファイル</dd>\n<dd>◇ URL</dd>\n<dd>◇ ファイル</dd>"
+                    }
+                  },
+                  "runAfter": {
+                    "Scope_-_Investigate_involved_users": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Scope"
+                }
+              },
+              "runAfter": {
+                "For_each_-_alert_check_the_keywod": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@int(1)",
+                      1
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            },
+            "For_each_-_alert_check_the_keywod": {
+              "foreach": "@triggerBody()?['object']?['properties']?['Alerts']",
+              "actions": {
+                "Condition_-_if_alerts_contain_keywords": {
+                  "actions": {
+                    "Append_to_array_variable": {
+                      "runAfter": {},
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "Alert title",
+                        "value": "@items('For_each_-_alert_check_the_keywod')?['properties']?['alertDisplayName']"
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "or": [
+                      {
+                        "contains": [
+                          "@items('For_each_-_alert_check_the_keywod')?['properties']?['alertDisplayName']",
+                          "Phish"
+                        ]
+                      },
+                      {
+                        "contains": [
+                          "@items('For_each_-_alert_check_the_keywod')?['properties']?['alertDisplayName']",
+                          "ZAP"
+                        ]
+                      },
+                      {
+                        "contains": [
+                          "@items('For_each_-_alert_check_the_keywod')?['properties']?['alertDisplayName']",
+                          "removed after delivery"
+                        ]
+                      },
+                      {
+                        "contains": [
+                          "@items('For_each_-_alert_check_the_keywod')?['properties']?['alertDisplayName']",
+                          "URL click was detected"
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Initialize_variable": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Foreach"
+            },
+            "Initialize_variable": {
+              "runAfter": {},
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "Alert title",
+                    "type": "array"
+                  }
+                ]
+              }
+            }
+          },
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "microsoftsentinel": {
+                "connectionId": "[resourceId('Microsoft.Web/connections', variables('MicrosoftsentinelConnectionName'))]",
+                "connectionName": "[variables('MicrosoftsentinelConnectionName')]",
+                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuresentinel')]",
+                "connectionProperties": {
+                  "authentication": {
+                    "type": "ManagedServiceIdentity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "name": "[parameters('PlaybookName')]",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "hidden-SentinelTemplateName": "Defender_XDR_Phishing_Playbook_for_SecOps-Tasks",
+        "hidden-SentinelTemplateVersion": "1.1"
+      },
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "apiVersion": "2017-07-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', variables('MicrosoftsentinelConnectionName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[variables('MicrosoftsentinelConnectionName')]",
+      "location": "[resourceGroup().location]",
+      "kind": "V1",
+      "properties": {
+        "displayName": "[variables('MicrosoftsentinelConnectionName')]",
+        "customParameterValues": {},
+        "parameterValueType": "Alternative",
+        "api": {
+          "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azuresentinel')]"
+        }
+      }
+    }
+  ]
+}
