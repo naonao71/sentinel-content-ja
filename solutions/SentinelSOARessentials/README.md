@@ -8,34 +8,8 @@ Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentin
 | パック バージョン | 3.0.8（2026 年 3 月 5 日更新） |
 | 取り込み日 | 2026 年 9 月 15 日 |
 | 検証環境 | Microsoft Sentinel をオンボード済みの Defender ポータル |
-| 検証上の制約 | サンプル インシデントを使用。対象キーワードを含む実アラートが紐づいた Defender XDR インシデントは未検証 |
 
-## サンプル インシデント検証の読み直し
-
-ラボのサンプル インシデントで実行したところ、Logic App は成功しましたが、タスクは作成されませんでした。
-
-実行履歴ではタスク作成アクションが `Skipped` でした。確認したサンプルの一部は、次のようにアラート配列が空でした。
-
-```
-providerName              : Microsoft XDR
-title                     : [SAMPLE ALERT] A user phishing attempt detected ...
-additionalData.alertsCount: 0
-alerts                    : []
-```
-
-検証環境のインシデント 50 件はすべて `providerName` が `Microsoft XDR` で、うち 37 件は `alertsCount` が 0 でした。ただし、これは**サンプル インシデントで得た結果**です。
-
-3 本は、それぞれ実際の製品アラートを起点に、インシデント内のアラート名を確認する設計です。
-
-| Playbook | 主な検知元 | 判定キーワード |
-| --- | --- | --- |
-| Phishing | MDO（確認例のサービス ソースは Office 365） | `Phish` / `ZAP` / `removed after delivery` / `URL click was detected` |
-| Ransomware | Defender XDR のランサムウェア関連アラート（確認例は Defender XDR と MDE の相関） | `Ransomware` / `ransomware` |
-| BEC | Defender XDR の BEC 関連アラート（確認例のサービス ソースは Microsoft Defender for Cloud Apps） | `BEC` |
-
-したがって、今回の結果から言えるのは、**サンプル インシデントでは原版の判定条件を満たさなかった**ことまでです。対象キーワードを含む実アラートが紐づいた Defender XDR インシデントでも動かないとは判断できません。
-
-### ③ タスク本文の文字化け
+## タスク本文の文字化け
 
 定義ファイルには、記号が壊れた文字（U+FFFD）が含まれています。箇条書きの先頭が `?` のような記号で表示されます。
 
