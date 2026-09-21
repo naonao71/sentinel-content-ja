@@ -1,24 +1,25 @@
 # sentinel-content-ja
 
-Microsoft Sentinel のコンテンツパックを、**統合ポータル（Microsoft Defender ポータル）で動くように修正**し、必要に応じて**日本語化**したものを置いています。
+Microsoft Sentinel のコンテンツパックを、原版の判定ロジックを保ったまま**日本語化**し、文字化けや壊れた HTML を修正したものを置いています。
 
-統合ポータル対応の動作修正は、**Microsoft Sentinel をオンボード済みのラボ環境で実機検証**しています。日本語化したJSONは構造・HTML・保護用語を機械検査しています。RansomwareとBECの日本語表示は再デプロイ後の確認待ちです。
+日本語化した JSON は、原版との構造比較、HTML、保護用語を機械検査しています。ラボで使用したサンプル インシデントではアラート配列が空だったため、実際の MDO / MDE 由来インシデントに対する原版の判定ロジックは未検証です。
 
 ## なぜこのリポジトリがあるのか
 
-Content Hub のコンテンツパックには、**Azure ポータル時代に作られたまま更新されていないもの**があります。統合ポータルへ移行した環境でそのまま入れると、次のような問題が起きます。
+Content Hub のコンテンツパックには、日本語環境で使う前に確認したいものがあります。
 
-- **デプロイも実行も成功するのに、何も起きない**
+- 本文が英語のまま
+- 日本語環境で箇条書きが文字化けする
 - README の手順が、現在の画面に存在しない設定を指している
-- 日本語環境では本文が文字化けしている
+- サンプル インシデントと実際の製品由来インシデントで入力データが異なる
 
-ここでは、そうした箇所を実機で特定し、**最小限の変更で動くようにしたもの**を置いています。
+ここでは、原版の処理条件を変更せず、日本語化と表示上の修正を加えたものを公開しています。
 
 ## 収録内容
 
 | ソリューション | 状態 | 内容 |
 | --- | --- | --- |
-| [SentinelSOARessentials](solutions/SentinelSOARessentials/) | ⚠️ 動作修正は検証済み | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の修正版。**3 本とも日本語化済み**。Ransomware / BEC の日本語表示は再検証待ち |
+| [SentinelSOARessentials](solutions/SentinelSOAREssentials/) | ⚠️ 実製品由来インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版。**原版の判定ロジックを維持** |
 
 ## 構成
 
@@ -30,7 +31,7 @@ solutions/
     ├── README.md                  ← 修正の一覧と検証結果
     └── Playbooks/
         └── <Playbook 名>/
-            ├── azuredeploy.json          ← 修正版（これを使う）
+            ├── azuredeploy.json          ← 日本語版（これを使う）
             ├── azuredeploy.original.json ← 取り込み時点の本家（比較用）
             └── README.md                 ← 変更点とデプロイ手順
 ```
@@ -50,7 +51,7 @@ solutions/
 
 - 元は [Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel)（MIT ライセンス）です
 - 各ファイルの取り込み日とバージョンは、ソリューションごとの README に記載しています
-- **本家の更新には自動で追随しません。** 取り込み時点の内容に対する修正です
+- **本家の更新には自動で追随しません。** 取り込み時点の内容に対する日本語化です
 
 ## ライセンス
 
