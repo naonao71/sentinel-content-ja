@@ -1,13 +1,13 @@
 # Defender XDR Ransomware タスク（日本語版）
 
-[Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials/Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks) の `Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks` を、統合ポータル（Microsoft Defender ポータル）で動くように修正したものです。
+[Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOAREssentials/Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks) の `Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks` を日本語化し、文字化けと HTML を修正したものです。アラート判定ロジックは原版を維持しています。
 
 | 項目 | 値 |
 | --- | --- |
 | 積まれるタスク数 | **25** |
 | 日本語化 | **完了**（メタデータ / タスク名 25 件 / 本文 25 件すべて） |
 | 取り込み日 | 2026 年 9 月 15 日 |
-| 検証 | ✅ 25 タスクの作成を確認済み。⚠️ 日本語表示は再デプロイ後に確認 |
+| 検証 | ⚠️ サンプルでは判定条件を満たさず。実際の MDE 由来インシデントで要検証 |
 
 ## ファイル
 
@@ -18,15 +18,13 @@
 
 ## 変更点
 
-### 1. タスクが積まれない問題の修正
+### 1. 原版の判定ロジックを維持
 
-本家のままでは、統合ポータルで**実行は成功するのにタスクが 0 件**になります。
+原版は、インシデントに紐づくアラート名に `Ransomware` / `ransomware` が含まれる場合にタスクを作成します。
 
-インシデントに紐づくアラート名に `Ransomware` / `ransomware` が含まれるかを判定してからタスクを積む作りですが、統合ポータルのインシデントは `alerts` 配列が空で、さらに Playbook が大文字の `Alerts` を読んでいるため、判定が常に false になります。
+ラボのサンプル インシデントではアラート配列が空で、タスクは 0 件でした。しかし、サンプルは実際の Microsoft Defender for Endpoint（MDE）由来インシデントと同じ入力を保証しません。
 
-**修正内容**: top-level の `Condition_-_if_alert_title_contains_ransomware` の式を常に true へ変更
-
-これでキーワード判定を素通りし、タスクが必ず積まれます。**どのインシデントに適用するかは、オートメーション ルールの条件側で絞ってください。**
+この日本語版では条件式を変更していません。実際の MDE 由来インシデントで検証してから本番利用してください。
 
 
 ### 2. 文字化けの修正

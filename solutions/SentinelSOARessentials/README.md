@@ -1,6 +1,6 @@
 # Sentinel SOAR Essentials（日本語版）
 
-Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials) に含まれる**タスク化 Playbook 3 本**を、統合ポータル（Microsoft Defender ポータル）で動くように修正し、**3 本とも日本語化**したものです。
+Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOAREssentials) に含まれる**タスク化 Playbook 3 本**を日本語化したものです。アラートの抽出、キーワード判定、タスク作成 Scope の配置は**原版のロジックを維持**しています。
 
 | 項目 | 値 |
 | --- | --- |
@@ -8,16 +8,13 @@ Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentin
 | パック バージョン | 3.0.8（2026 年 3 月 5 日更新） |
 | 取り込み日 | 2026 年 9 月 15 日 |
 | 検証環境 | Microsoft Sentinel をオンボード済みの Defender ポータル |
+| 検証上の制約 | サンプル インシデントを使用。実際の MDO / MDE 由来インシデントは未検証 |
 
-## 何が問題だったのか
+## サンプル インシデント検証の読み直し
 
-3 本とも、**デプロイも実行も成功するのに、タスクが 1 つも作られません。**
+ラボのサンプル インシデントで実行したところ、Logic App は成功しましたが、タスクは作成されませんでした。
 
-実行履歴を開くと、すべてのアクションが `Skipped` になっています。原因は 2 つです。
-
-### ① トリガー本文の `alerts` が空
-
-Playbook は、インシデントに紐づくアラート名にキーワード（`Phish` など）が含まれるかを調べてからタスクを積みます。ところが統合ポータルのインシデントでは、この配列が空でした。
+実行履歴ではタスク作成アクションが `Skipped` でした。確認したサンプルの一部は、次のようにアラート配列が空でした。
 
 ```
 providerName              : Microsoft XDR
@@ -26,17 +23,17 @@ additionalData.alertsCount: 0
 alerts                    : []
 ```
 
-検証環境のインシデント 50 件はすべて `providerName` が `Microsoft XDR` で、うち 37 件は `alertsCount` が 0 でした。**タイトルにフィッシングと書かれていても、アラート配列は空**です。
+検証環境のインシデント 50 件はすべて `providerName` が `Microsoft XDR` で、うち 37 件は `alertsCount` が 0 でした。ただし、これは**サンプル インシデントで得た結果**です。
 
-### ② プロパティ名の大文字小文字が合っていない
+3 本は、それぞれ実際の製品アラートを起点に、インシデント内のアラート名を確認する設計です。
 
-トリガー本文の実際のキーは小文字の `alerts` ですが、Playbook が読んでいるのは大文字の `Alerts` です。
+| Playbook | 主な検知元 | 判定キーワード |
+| --- | --- | --- |
+| Phishing | Microsoft Defender for Office 365（MDO） | `Phish` / `ZAP` / `removed after delivery` / `URL click was detected` |
+| Ransomware | Microsoft Defender for Endpoint（MDE） | `Ransomware` / `ransomware` |
+| BEC | Microsoft Defender for Office 365（MDO） | `BEC` |
 
-```
-@triggerBody()?['object']?['properties']?['Alerts']
-```
-
-Logic Apps の `?[...]` は存在しないキーを `null` として扱うため、**エラーにならず静かに素通り**します。結果として「実行は成功、タスクは 0 件」という、最も気づきにくい壊れ方をします。
+したがって、今回の結果から言えるのは、**サンプル インシデントでは原版の判定条件を満たさなかった**ことまでです。実際の MDO / MDE 由来インシデントでも動かないとは判断できません。
 
 ### ③ タスク本文の文字化け
 
@@ -50,19 +47,13 @@ Logic Apps の `?[...]` は存在しないキーを `null` として扱うため
 
 `<dt>` 内は `◆`、`<dd>` 内は `◇` に置き換えました。
 
-## 修正内容
+## 変更内容
 
-**キーワード判定を通さず、常にタスクを積む**ようにしました。どのインシデントに適用するかは、**オートメーション ルールの条件側で絞ります**。
-
-構造が 3 本で違うため、修正方法も 2 通りあります。
-
-| Playbook | 構造 | 修正 |
-| --- | --- | --- |
-| Phishing | `If` > `Scope_*` | `If` の式を常に true へ |
-| Ransomware | `If` > `Scope_*` | 同上 |
-| **BEC** | `Foreach` > `If` > `Scope_*` | **`Scope_*` を top-level へ引き上げ** |
-
-BEC だけタスクが `Foreach` の内側にあるため、式を変えるだけでは動きません。`Foreach` が 1 度も回らないからです。
+- テンプレートのタイトル、説明、デプロイ後の手順を日本語化
+- タスク名と本文を日本語化
+- U+FFFD に置き換わっていた箇条書き記号を修正
+- 壊れた HTML タグを修正
+- 原版のアラート抽出、キーワード判定、Scope 構造を維持
 
 ## 日本語化
 
@@ -91,11 +82,11 @@ BEC だけタスクが `Foreach` の内側にあるため、式を変えるだ�
 
 | Playbook | タスク数 | 日本語化 | 文字化け修正 | 検証 |
 | --- | --- | --- | --- | --- |
-| [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ✅ 6 件作成を確認 |
-| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ タスク作成25件は確認済み。日本語表示は再検証待ち |
-| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ タスク作成8件は確認済み。日本語表示は再検証待ち |
+| [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
+| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ 実際の MDE 由来インシデントで要検証 |
+| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
 
-3 本とも**実機でタスクが作られるところまで確認**しています。
+条件を一時的に迂回した検証では、タスク作成アクション自体が 6 / 25 / 8 件を作成できることを確認しました。ただし、これは**原版の判定ロジックが実際の製品由来インシデントで成立することの確認ではありません**。
 
 ## 共通のデプロイ手順
 
@@ -122,7 +113,7 @@ az role assignment create --assignee-object-id $OID \
 
 ## オートメーション ルールでの絞り込み
 
-本家の README は「条件を `Incident provider` = `Microsoft Defender XDR` にする」と指示していますが、**統合ポータルではこのプロパティが削除されています**。代わりに次を使ってください。
+本家の README は「条件を `Incident provider` = `Microsoft Defender XDR` にする」と指示していますが、**統合ポータルではこのプロパティが表示されません**。必要に応じて、環境で利用できる次の条件を追加してください。
 
 | 条件 | 例 |
 | --- | --- |
@@ -130,10 +121,12 @@ az role assignment create --assignee-object-id $OID \
 | タグ | 事前にタグを付けておく |
 | 分析ルール名 | Sentinel 由来のインシデントに限定したい場合 |
 
-**条件を付けないと全インシデントにタスクが積まれます。** Logic Apps の課金は実行回数に比例するため、必ず絞ってください。
+Playbook 内部にもアラート名による判定がありますが、不要な Logic Apps 実行を減らすため、オートメーション ルール側でも対象を絞ることを推奨します。
 
 ## 検証で分かったこと
 
 - Logic App の実行が `Succeeded` でも、**中のアクションが `Skipped`** のことがあります。導入後は実行履歴をアクション単位で確認してください
+- サンプル インシデントは、実際の MDO / MDE 由来インシデントと同じアラート情報を持つとは限りません
+- 原版ロジックの可否は、対象製品から実際に生成されたインシデントで確認してください
 - Sentinel のインシデント番号と Defender ポータルの番号は**一致しません**。`properties.additionalData.providerIncidentUrl` に正しい URL が入っています
 - `Redirected` ラベルが付いたインシデントは、ポータルで別インシデントへ転送されます

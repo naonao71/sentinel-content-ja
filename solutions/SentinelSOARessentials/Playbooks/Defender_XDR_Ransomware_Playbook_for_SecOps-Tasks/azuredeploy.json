@@ -25,7 +25,7 @@
   },
   "parameters": {
     "PlaybookName": {
-      "defaultValue": "Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks-JA",
+      "defaultValue": "Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks",
       "type": "string"
     }
   },
@@ -921,9 +921,9 @@
               "expression": {
                 "and": [
                   {
-                    "equals": [
-                      "@int(1)",
-                      1
+                    "greater": [
+                      "@length(variables('Alert title'))",
+                      0
                     ]
                   }
                 ]

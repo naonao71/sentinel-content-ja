@@ -25,7 +25,7 @@
   },
   "parameters": {
     "PlaybookName": {
-      "defaultValue": "Defender_XDR_BEC_Playbook_for_SecOps-Tasks-JA",
+      "defaultValue": "Defender_XDR_BEC_Playbook_for_SecOps-Tasks",
       "type": "string"
     }
   },
@@ -67,7 +67,302 @@
               "foreach": "@triggerBody()?['object']?['properties']?['Alerts']",
               "actions": {
                 "Condition_-_if_alerts_contain_keywords": {
-                  "actions": {},
+                  "actions": {
+                    "Scope_-_Contain": {
+                      "actions": {
+                        "Add_task_to_incident_-_Contain": {
+                          "runAfter": {
+                            "Compose_-_Contain": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Contain')}</p>",
+                              "taskTitle": "封じ込め"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Compose_-_Contain": {
+                          "runAfter": {},
+                          "type": "Compose",
+                          "inputs": "<dt><b>◆ どの資産が関係していますか？</b></dt>\n<dd>◇ 端末が不審な動作をしていた場合は、Microsoft Defender XDR で<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts#isolate-devices-from-the-network\">デバイスを隔離</a>するか、<a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/sentinel/respond-threats-during-investigation\">Microsoft Sentinel から実行</a>することを検討します。</dd>\n<dt><b>◆ どのユーザー アカウントが関係し、どのような権限を持っていますか？</b></dt>\n<dd>◇ リスクを評価するため、まず対象が優先度の高いアカウント、管理職のアカウント、管理者アカウントのいずれかに該当するかを確認します。</dd>\n<dt><b>◆ 自動応答によって、すでにどの封じ込め措置が実行されていますか？</b></dt>\n<dd>◇ 証拠の修復状況はどうなっていますか？</dd>\n<dd>◇ Defender ポータルの「証拠と対応」タブで、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/air-review-approve-pending-completed-actions\">承認待ちのアクション</a>を確認します。</dd>"
+                        }
+                      },
+                      "runAfter": {
+                        "Scope_-_Introduction": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Scope"
+                    },
+                    "Scope_-_Introduction": {
+                      "actions": {
+                        "Add_task_to_incident_-_Introduction": {
+                          "runAfter": {
+                            "Compose_-_Introduction": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Introduction')}</p>",
+                              "taskTitle": "はじめに"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Compose_-_Introduction": {
+                          "runAfter": {},
+                          "type": "Compose",
+                          "inputs": "<dt>この Playbook では、ビジネス メール詐欺 (BEC) インシデントへの対応を、封じ込め・調査・修復・予防の 4 つの段階に分けて進めます。手順に沿って対応することで、情報を保護し、その後のリスクを最小限に抑えられます。</dt>\n<dt>準備ができたら、「封じ込め」タスクを開いてください。</dt>"
+                        },
+                        "Mark_a_task_as_completed_-_Introduction": {
+                          "runAfter": {
+                            "Add_task_to_incident_-_Introduction": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "taskArmId": "@body('Add_task_to_incident_-_Introduction')?['id']"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CompleteTask"
+                          }
+                        }
+                      },
+                      "runAfter": {},
+                      "type": "Scope"
+                    },
+                    "Scope_-_Investigation": {
+                      "actions": {
+                        "Add_task_to_incident_-_Investigation_-_Step_1": {
+                          "runAfter": {
+                            "Compose_-_Investigation_-_Step_1": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_1')}</p>",
+                              "taskTitle": "調査 - ステップ 1"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Add_task_to_incident_-_Investigation_-_Step_2": {
+                          "runAfter": {
+                            "Compose_-_Investigation_-_Step_2": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_2')}</p>",
+                              "taskTitle": "調査 - ステップ 2"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Add_task_to_incident_-_Investigation_-_Step_3": {
+                          "runAfter": {
+                            "Compose_-_Investigation_-_Step_3": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_3')}</p>",
+                              "taskTitle": "調査 - ステップ 3"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Add_task_to_incident_-_Investigation_-_Step_4": {
+                          "runAfter": {
+                            "Compose_-_Investigation_-_Step_4": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_4')}</p>",
+                              "taskTitle": "調査 - ステップ 4"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Compose_-_Investigation_-_Step_1": {
+                          "runAfter": {},
+                          "type": "Compose",
+                          "inputs": "<dt>インシデントに関係する各ユーザーについて、次を確認します。</dt>\n<dt><b>1.\tユーザー アカウントに不審な操作が無いかを調査し、最初の侵害経路を特定します。</b></dt>\n<dd>1.\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/sentinel/investigate-with-ueba\">Microsoft Sentinel UEBA でユーザーを調査する</a>、および <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users\">Microsoft 365 Defender でユーザーを調査する</a>。</dd>\n<dd>2.\tユーザーが最近クリックしたリンクを検索します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/urlclickevents\">Microsoft Sentinel Logs の UrlClickEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-urlclickevents-table\">Advanced Hunting の UrlClickEvents</a>。</dd>\n<dd>3.\tリスクの兆候を確認します: <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/identity-protection/howto-identity-protection-investigate-risk\">Azure AD Identity Protection でリスクを調査する</a>。</dd>\n<dd>4.\tユーザーがスパムまたはフィッシングとして報告したメッセージを確認します: <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/admin-submission#view-user-submissions-to-microsoft\">ユーザーから Microsoft への送信を表示する</a>。</dd>\n<dt>続けて「調査 - ステップ 2」に進みます。</dt>"
+                        },
+                        "Compose_-_Investigation_-_Step_2": {
+                          "runAfter": {
+                            "Add_task_to_incident_-_Investigation_-_Step_1": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "<dt><b>2.\tそのユーザー アカウントの<a target='_blank' href=\"https://docs.microsoft.com/defender-cloud-apps/tutorial-ueba#understand-the-investigation-priority-score\">調査優先度スコア</a>はどのくらいですか？</b></dt>\n<dt>続けて「調査 - ステップ 3」に進みます。</dt>"
+                        },
+                        "Compose_-_Investigation_-_Step_3": {
+                          "runAfter": {
+                            "Add_task_to_incident_-_Investigation_-_Step_2": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "<dt><b>3.\tユーザーのアクティビティを調査します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/cloudappevents\">Microsoft Sentinel Logs の CloudAppEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-cloudappevents-table\">Advanced Hunting の CloudAppEvents</a>:</b></dt>\n<dd>◇  メールボックスに不審な受信トレイ ルールが最近作成されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"New-InboxRule\"、\"Set-InboxRule\"、\"UpdateInboxRules\"。</dd>\n<dd>◇  メールボックスに SMTP 転送が最近設定されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"ForwardingSmtpAddress\" パラメーターを伴う \"Set-Mailbox\"。</dd>\n<dd>◇  ユーザーが最近、新しいデバイスを登録していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"Add registered owner to device\"。</dd>\n<dd>◇  ユーザーが最近、新しい Power Automate のタスクを作成していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"CreateFlow\"。</dd>\n<dd>◇  ユーザーに対して、パスワードレス サインインの方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"SearchableDeviceKey\" プロパティが変更された \"Update user\"。</dd>\n<dd>◇  ユーザーに対して、新しい多要素認証 (MFA) の方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs\">Microsoft Sentinel Logs の AuditLogs</a>、または <a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/active-directory/reports-monitoring/concept-audit-logs\">Azure AD の監査ログ</a>で調査します。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティの種類: \"User registered security info\"。</dd>\n<dt>続けて「調査 - ステップ 4」に進みます。</dt>"
+                        },
+                        "Compose_-_Investigation_-_Step_4": {
+                          "runAfter": {
+                            "Add_task_to_incident_-_Investigation_-_Step_3": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "<dt><b>4.\tユーザーが送信したメール メッセージを調査します。</b></dt>\n<dd>◇  <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/emailevents\"> Microsoft Sentinel Logs の EmailEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-emailevents-table\">Microsoft Defender XDR の Advanced Hunting</a> を使い、\"SenderObjectId\" でテーブルを絞り込んで、ユーザーになりすまして送信された不審なメッセージを探します。</dd>"
+                        }
+                      },
+                      "runAfter": {
+                        "Scope_-_Contain": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Scope"
+                    },
+                    "Scope_-_Prevention": {
+                      "actions": {
+                        "Add_task_to_incident_-_Prevention": {
+                          "runAfter": {
+                            "Compose_-_Prevention": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Prevention')}</p>",
+                              "taskTitle": "予防"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Compose_-_Prevention": {
+                          "runAfter": {},
+                          "type": "Compose",
+                          "inputs": "<dt>◆  まだ設定していない場合は、すべてのユーザーに多要素認証 (MFA) と条件付きアクセスを構成します。<a target='_blank' href=\"https://docs.microsoft.com/azure/security/fundamentals/identity-management-best-practices\">Azure の ID 管理とアクセス制御のセキュリティに関するベスト プラクティス</a>の推奨事項に従ってください。</dt>\n<dt>◆  このインシデントの侵入経路がフィッシング メールだった場合は、Microsoft Defender for Office 365 が<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365\">推奨されるベスト プラクティス</a>に従って構成されているかを確認します。</dt>  \n<dt>◆  このインシデントに外部へのメール転送や転送アラートが関係していた場合は、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/external-email-forwarding\">外部への自動メール転送を制御</a>します。</dt>"
+                        }
+                      },
+                      "runAfter": {
+                        "Scope_-_Remediation": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Scope"
+                    },
+                    "Scope_-_Remediation": {
+                      "actions": {
+                        "Add_task_to_incident_-_Remediation": {
+                          "runAfter": {
+                            "Compose_-_Remediation": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                            "body": {
+                              "incidentArmId": "@triggerBody()?['object']?['id']",
+                              "taskDescription": "<p>@{outputs('Compose_-_Remediation')}</p>",
+                              "taskTitle": "修復"
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/Incidents/CreateTask"
+                          }
+                        },
+                        "Compose_-_Remediation": {
+                          "runAfter": {},
+                          "type": "Compose",
+                          "inputs": "<dt><b>◆  インシデントを True Positive（真陽性）として分類します。</b></dt>\n<dt><b>◆  不審なアクティビティがあったユーザー アカウントについては、次の対応を行います。</b></dt>\n<dd>◇  該当するユーザーに連絡します。</dd>\n<dd>◇  アカウントのパスワードをリセットします。</dd>\n<dd>◇  ユーザーにサインアウトと再サインインを求めます。</dd>\n<dd>◇  最近登録されたデバイスやアプリケーションがあれば削除します。</dd>\n<dd>◇  最近登録されたパスワードレス認証の方法があれば削除します。</dd>\n<dd>◇  最近登録された多要素認証 (MFA) の方法があれば削除します。</dd>\n<dt><b>◆  <a target='_blank' href=\"https://security.microsoft.com/threatexplorer\">Threat Explorer</a> を使って、社内の受信者へ送られた悪意のあるメッセージを特定します。そのメッセージは Microsoft へ分析のために送信し、他のメールボックスからも削除します。</b></dt>\n<dt><b>◆  このインシデントで転送ルールが作成されていた場合は、その転送ルールを削除し、転送先アドレスをブロックします。</b></dt>"
+                        }
+                      },
+                      "runAfter": {
+                        "Scope_-_Investigation": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Scope"
+                    }
+                  },
                   "runAfter": {},
                   "expression": {
                     "and": [
@@ -84,300 +379,6 @@
               },
               "runAfter": {},
               "type": "Foreach"
-            },
-            "Scope_-_Contain": {
-              "actions": {
-                "Add_task_to_incident_-_Contain": {
-                  "runAfter": {
-                    "Compose_-_Contain": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Contain')}</p>",
-                      "taskTitle": "封じ込め"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Compose_-_Contain": {
-                  "runAfter": {},
-                  "type": "Compose",
-                  "inputs": "<dt><b>◆ どの資産が関係していますか？</b></dt>\n<dd>◇ 端末が不審な動作をしていた場合は、Microsoft Defender XDR で<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts#isolate-devices-from-the-network\">デバイスを隔離</a>するか、<a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/sentinel/respond-threats-during-investigation\">Microsoft Sentinel から実行</a>することを検討します。</dd>\n<dt><b>◆ どのユーザー アカウントが関係し、どのような権限を持っていますか？</b></dt>\n<dd>◇ リスクを評価するため、まず対象が優先度の高いアカウント、管理職のアカウント、管理者アカウントのいずれかに該当するかを確認します。</dd>\n<dt><b>◆ 自動応答によって、すでにどの封じ込め措置が実行されていますか？</b></dt>\n<dd>◇ 証拠の修復状況はどうなっていますか？</dd>\n<dd>◇ Defender ポータルの「証拠と対応」タブで、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/air-review-approve-pending-completed-actions\">承認待ちのアクション</a>を確認します。</dd>"
-                }
-              },
-              "runAfter": {
-                "Scope_-_Introduction": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Scope"
-            },
-            "Scope_-_Introduction": {
-              "actions": {
-                "Add_task_to_incident_-_Introduction": {
-                  "runAfter": {
-                    "Compose_-_Introduction": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Introduction')}</p>",
-                      "taskTitle": "はじめに"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Compose_-_Introduction": {
-                  "runAfter": {},
-                  "type": "Compose",
-                  "inputs": "<dt>この Playbook では、ビジネス メール詐欺 (BEC) インシデントへの対応を、封じ込め・調査・修復・予防の 4 つの段階に分けて進めます。手順に沿って対応することで、情報を保護し、その後のリスクを最小限に抑えられます。</dt>\n<dt>準備ができたら、「封じ込め」タスクを開いてください。</dt>"
-                },
-                "Mark_a_task_as_completed_-_Introduction": {
-                  "runAfter": {
-                    "Add_task_to_incident_-_Introduction": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "taskArmId": "@body('Add_task_to_incident_-_Introduction')?['id']"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CompleteTask"
-                  }
-                }
-              },
-              "runAfter": {},
-              "type": "Scope"
-            },
-            "Scope_-_Investigation": {
-              "actions": {
-                "Add_task_to_incident_-_Investigation_-_Step_1": {
-                  "runAfter": {
-                    "Compose_-_Investigation_-_Step_1": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_1')}</p>",
-                      "taskTitle": "調査 - ステップ 1"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Add_task_to_incident_-_Investigation_-_Step_2": {
-                  "runAfter": {
-                    "Compose_-_Investigation_-_Step_2": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_2')}</p>",
-                      "taskTitle": "調査 - ステップ 2"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Add_task_to_incident_-_Investigation_-_Step_3": {
-                  "runAfter": {
-                    "Compose_-_Investigation_-_Step_3": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_3')}</p>",
-                      "taskTitle": "調査 - ステップ 3"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Add_task_to_incident_-_Investigation_-_Step_4": {
-                  "runAfter": {
-                    "Compose_-_Investigation_-_Step_4": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_4')}</p>",
-                      "taskTitle": "調査 - ステップ 4"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Compose_-_Investigation_-_Step_1": {
-                  "runAfter": {},
-                  "type": "Compose",
-                  "inputs": "<dt>インシデントに関係する各ユーザーについて、次を確認します。</dt>\n<dt><b>1.\tユーザー アカウントに不審な操作が無いかを調査し、最初の侵害経路を特定します。</b></dt>\n<dd>1.\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/sentinel/investigate-with-ueba\">Microsoft Sentinel UEBA でユーザーを調査する</a>、および <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users\">Microsoft 365 Defender でユーザーを調査する</a>。</dd>\n<dd>2.\tユーザーが最近クリックしたリンクを検索します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/urlclickevents\">Microsoft Sentinel Logs の UrlClickEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-urlclickevents-table\">Advanced Hunting の UrlClickEvents</a>。</dd>\n<dd>3.\tリスクの兆候を確認します: <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/identity-protection/howto-identity-protection-investigate-risk\">Azure AD Identity Protection でリスクを調査する</a>。</dd>\n<dd>4.\tユーザーがスパムまたはフィッシングとして報告したメッセージを確認します: <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/admin-submission#view-user-submissions-to-microsoft\">ユーザーから Microsoft への送信を表示する</a>。</dd>\n<dt>続けて「調査 - ステップ 2」に進みます。</dt>"
-                },
-                "Compose_-_Investigation_-_Step_2": {
-                  "runAfter": {
-                    "Add_task_to_incident_-_Investigation_-_Step_1": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "Compose",
-                  "inputs": "<dt><b>2.\tそのユーザー アカウントの<a target='_blank' href=\"https://docs.microsoft.com/defender-cloud-apps/tutorial-ueba#understand-the-investigation-priority-score\">調査優先度スコア</a>はどのくらいですか？</b></dt>\n<dt>続けて「調査 - ステップ 3」に進みます。</dt>"
-                },
-                "Compose_-_Investigation_-_Step_3": {
-                  "runAfter": {
-                    "Add_task_to_incident_-_Investigation_-_Step_2": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "Compose",
-                  "inputs": "<dt><b>3.\tユーザーのアクティビティを調査します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/cloudappevents\">Microsoft Sentinel Logs の CloudAppEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-cloudappevents-table\">Advanced Hunting の CloudAppEvents</a>:</b></dt>\n<dd>◇  メールボックスに不審な受信トレイ ルールが最近作成されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"New-InboxRule\"、\"Set-InboxRule\"、\"UpdateInboxRules\"。</dd>\n<dd>◇  メールボックスに SMTP 転送が最近設定されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"ForwardingSmtpAddress\" パラメーターを伴う \"Set-Mailbox\"。</dd>\n<dd>◇  ユーザーが最近、新しいデバイスを登録していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"Add registered owner to device\"。</dd>\n<dd>◇  ユーザーが最近、新しい Power Automate のタスクを作成していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"CreateFlow\"。</dd>\n<dd>◇  ユーザーに対して、パスワードレス サインインの方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"SearchableDeviceKey\" プロパティが変更された \"Update user\"。</dd>\n<dd>◇  ユーザーに対して、新しい多要素認証 (MFA) の方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs\">Microsoft Sentinel Logs の AuditLogs</a>、または <a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/active-directory/reports-monitoring/concept-audit-logs\">Azure AD の監査ログ</a>で調査します。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティの種類: \"User registered security info\"。</dd>\n<dt>続けて「調査 - ステップ 4」に進みます。</dt>"
-                },
-                "Compose_-_Investigation_-_Step_4": {
-                  "runAfter": {
-                    "Add_task_to_incident_-_Investigation_-_Step_3": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "Compose",
-                  "inputs": "<dt><b>4.\tユーザーが送信したメール メッセージを調査します。</b></dt>\n<dd>◇  <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/emailevents\"> Microsoft Sentinel Logs の EmailEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-emailevents-table\">Microsoft Defender XDR の Advanced Hunting</a> を使い、\"SenderObjectId\" でテーブルを絞り込んで、ユーザーになりすまして送信された不審なメッセージを探します。</dd>"
-                }
-              },
-              "runAfter": {
-                "Scope_-_Contain": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Scope"
-            },
-            "Scope_-_Prevention": {
-              "actions": {
-                "Add_task_to_incident_-_Prevention": {
-                  "runAfter": {
-                    "Compose_-_Prevention": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Prevention')}</p>",
-                      "taskTitle": "予防"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Compose_-_Prevention": {
-                  "runAfter": {},
-                  "type": "Compose",
-                  "inputs": "<dt>◆  まだ設定していない場合は、すべてのユーザーに多要素認証 (MFA) と条件付きアクセスを構成します。<a target='_blank' href=\"https://docs.microsoft.com/azure/security/fundamentals/identity-management-best-practices\">Azure の ID 管理とアクセス制御のセキュリティに関するベスト プラクティス</a>の推奨事項に従ってください。</dt>\n<dt>◆  このインシデントの侵入経路がフィッシング メールだった場合は、Microsoft Defender for Office 365 が<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365\">推奨されるベスト プラクティス</a>に従って構成されているかを確認します。</dt>  \n<dt>◆  このインシデントに外部へのメール転送や転送アラートが関係していた場合は、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/external-email-forwarding\">外部への自動メール転送を制御</a>します。</dt>"
-                }
-              },
-              "runAfter": {
-                "Scope_-_Remediation": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Scope"
-            },
-            "Scope_-_Remediation": {
-              "actions": {
-                "Add_task_to_incident_-_Remediation": {
-                  "runAfter": {
-                    "Compose_-_Remediation": [
-                      "Succeeded"
-                    ]
-                  },
-                  "type": "ApiConnection",
-                  "inputs": {
-                    "body": {
-                      "incidentArmId": "@triggerBody()?['object']?['id']",
-                      "taskDescription": "<p>@{outputs('Compose_-_Remediation')}</p>",
-                      "taskTitle": "修復"
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['microsoftsentinel']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/Incidents/CreateTask"
-                  }
-                },
-                "Compose_-_Remediation": {
-                  "runAfter": {},
-                  "type": "Compose",
-                  "inputs": "<dt><b>◆  インシデントを True Positive（真陽性）として分類します。</b></dt>\n<dt><b>◆  不審なアクティビティがあったユーザー アカウントについては、次の対応を行います。</b></dt>\n<dd>◇  該当するユーザーに連絡します。</dd>\n<dd>◇  アカウントのパスワードをリセットします。</dd>\n<dd>◇  ユーザーにサインアウトと再サインインを求めます。</dd>\n<dd>◇  最近登録されたデバイスやアプリケーションがあれば削除します。</dd>\n<dd>◇  最近登録されたパスワードレス認証の方法があれば削除します。</dd>\n<dd>◇  最近登録された多要素認証 (MFA) の方法があれば削除します。</dd>\n<dt><b>◆  <a target='_blank' href=\"https://security.microsoft.com/threatexplorer\">Threat Explorer</a> を使って、社内の受信者へ送られた悪意のあるメッセージを特定します。そのメッセージは Microsoft へ分析のために送信し、他のメールボックスからも削除します。</b></dt>\n<dt><b>◆  このインシデントで転送ルールが作成されていた場合は、その転送ルールを削除し、転送先アドレスをブロックします。</b></dt>"
-                }
-              },
-              "runAfter": {
-                "Scope_-_Investigation": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Scope"
             }
           },
           "outputs": {}
