@@ -116,23 +116,3 @@ Phishing / Ransomware / BEC に該当する場合、共通 6 件に加えて脅�
 ### 自動実行も可能
 
 インシデント トリガーを使用しているため、オートメーション ルールからも実行できます。ただし、すべてのインシデントへ自動適用すると Logic Apps の実行回数とタスク数が増えるため、本版は**インシデント画面からのオンデマンド実行**を推奨します。
-
-## 検証記録
-
-2026 年 9 月 21 日にラボ環境へデプロイし、次を確認しました。
-
-- ARM テンプレート検証: `Succeeded`
-- Logic App: `Enabled` / `Succeeded`
-- Microsoft Sentinel API 接続: `Ready`
-- インシデント トリガー: `Enabled` / `Registered`
-- タスク定義: `[共通]` で始まる 6 件
-- `Foreach` の同時実行数: `1`
-- Logic App マネージド ID: `Microsoft Sentinel Responder`
-- 実行者: `Microsoft Sentinel Responder` / `Microsoft Sentinel Playbook Operator`
-- Microsoft Sentinel: `Microsoft Sentinel Automation Contributor`
-- インシデント番号 94 への実行: `Succeeded`
-- 作成タスク: 6 件
-- `[共通] はじめに`: `Completed`
-- その他 5 件: `New`
-
-初回は Azure ポータルの Logic App から直接実行したため、トリガー本文の `Content-Length` が 0 となり、`incidentArmId = null` で失敗しました。インシデント本文を渡した再実行では成功しました。
