@@ -8,7 +8,7 @@ Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentin
 | パック バージョン | 3.0.8（2026 年 3 月 5 日更新） |
 | 取り込み日 | 2026 年 9 月 15 日 |
 | 検証環境 | Microsoft Sentinel をオンボード済みの Defender ポータル |
-| 検証上の制約 | サンプル インシデントを使用。実際の MDO / MDE 由来インシデントは未検証 |
+| 検証上の制約 | サンプル インシデントを使用。対象キーワードを含む実アラートが紐づいた Defender XDR インシデントは未検証 |
 
 ## サンプル インシデント検証の読み直し
 
@@ -29,11 +29,11 @@ alerts                    : []
 
 | Playbook | 主な検知元 | 判定キーワード |
 | --- | --- | --- |
-| Phishing | Microsoft Defender for Office 365（MDO） | `Phish` / `ZAP` / `removed after delivery` / `URL click was detected` |
-| Ransomware | Microsoft Defender for Endpoint（MDE） | `Ransomware` / `ransomware` |
+| Phishing | MDO（確認例のサービス ソースは Office 365） | `Phish` / `ZAP` / `removed after delivery` / `URL click was detected` |
+| Ransomware | Defender XDR のランサムウェア関連アラート（確認例は Defender XDR と MDE の相関） | `Ransomware` / `ransomware` |
 | BEC | Defender XDR の BEC 関連アラート（確認例のサービス ソースは Microsoft Defender for Cloud Apps） | `BEC` |
 
-したがって、今回の結果から言えるのは、**サンプル インシデントでは原版の判定条件を満たさなかった**ことまでです。実際の MDO / MDE 由来インシデントでも動かないとは判断できません。
+したがって、今回の結果から言えるのは、**サンプル インシデントでは原版の判定条件を満たさなかった**ことまでです。対象キーワードを含む実アラートが紐づいた Defender XDR インシデントでも動かないとは判断できません。
 
 ### ③ タスク本文の文字化け
 
@@ -83,7 +83,7 @@ alerts                    : []
 | Playbook | タスク数 | 日本語化 | 文字化け修正 | 検証 |
 | --- | --- | --- | --- | --- |
 | [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
-| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ 実際の MDE 由来インシデントで要検証 |
+| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ `Ransomware` を含む実アラートが紐づいたインシデントで要検証 |
 | [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ `BEC` を含む実アラートが紐づいたインシデントで要検証 |
 
 条件を一時的に迂回した検証では、タスク作成アクション自体が 6 / 25 / 8 件を作成できることを確認しました。ただし、これは**原版の判定ロジックが実際の製品由来インシデントで成立することの確認ではありません**。
@@ -126,7 +126,7 @@ Playbook 内部にもアラート名による判定がありますが、不要�
 ## 検証で分かったこと
 
 - Logic App の実行が `Succeeded` でも、**中のアクションが `Skipped`** のことがあります。導入後は実行履歴をアクション単位で確認してください
-- サンプル インシデントは、実際の MDO / MDE 由来インシデントと同じアラート情報を持つとは限りません
+- サンプル インシデントは、実際の製品アラートが紐づいた Defender XDR インシデントと同じアラート情報を持つとは限りません
 - 原版ロジックの可否は、対象製品から実際に生成されたインシデントで確認してください
 - Sentinel のインシデント番号と Defender ポータルの番号は**一致しません**。`properties.additionalData.providerIncidentUrl` に正しい URL が入っています
 - `Redirected` ラベルが付いたインシデントは、ポータルで別インシデントへ転送されます
