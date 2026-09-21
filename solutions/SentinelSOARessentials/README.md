@@ -31,7 +31,7 @@ alerts                    : []
 | --- | --- | --- |
 | Phishing | Microsoft Defender for Office 365（MDO） | `Phish` / `ZAP` / `removed after delivery` / `URL click was detected` |
 | Ransomware | Microsoft Defender for Endpoint（MDE） | `Ransomware` / `ransomware` |
-| BEC | Microsoft Defender for Office 365（MDO） | `BEC` |
+| BEC | Defender XDR の BEC 関連アラート（確認例のサービス ソースは Microsoft Defender for Cloud Apps） | `BEC` |
 
 したがって、今回の結果から言えるのは、**サンプル インシデントでは原版の判定条件を満たさなかった**ことまでです。実際の MDO / MDE 由来インシデントでも動かないとは判断できません。
 
@@ -84,7 +84,7 @@ alerts                    : []
 | --- | --- | --- | --- | --- |
 | [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
 | [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ 実際の MDE 由来インシデントで要検証 |
-| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
+| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ `BEC` を含む実アラートが紐づいたインシデントで要検証 |
 
 条件を一時的に迂回した検証では、タスク作成アクション自体が 6 / 25 / 8 件を作成できることを確認しました。ただし、これは**原版の判定ロジックが実際の製品由来インシデントで成立することの確認ではありません**。
 
