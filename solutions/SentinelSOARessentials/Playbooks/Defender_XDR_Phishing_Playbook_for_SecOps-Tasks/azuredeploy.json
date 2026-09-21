@@ -2,12 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "metadata": {
-    "title": "Incident tasks - Microsoft Defender XDR Phishing Playbook for SecOps",
-    "description": "This playbook add Incident Tasks based on Microsoft Defender XDR Phishing Playbook for SecOps. This playbook will walk the analyst through four stages of responding to a phishing incident: containment, investigation, remediation and prevention. The step-by-step instructions will help you take the required remedial action to protect information and minimize further risks.",
+    "title": "インシデント タスク - Microsoft Defender XDR Phishing Playbook for SecOps",
+    "description": "このプレイブックは、Microsoft Defender XDR Phishing Playbook for SecOps に基づくインシデント タスクを追加します。フィッシング インシデントへの対応を、封じ込め、調査、修復、予防の 4 段階でアナリストに案内します。段階的な手順に従うことで、情報を保護し、さらなるリスクを最小限に抑えるために必要な修復措置を実施できます。",
     "prerequisites": "",
     "postDeployment": [
-      "1. Add Microsoft Sentinel Responder role to the managed identity.",
-      "2. Assign playbook to the automation rule."
+      "1. マネージド ID に Microsoft Sentinel Responder ロールを割り当てます。",
+      "2. プレイブックをオートメーション ルールに割り当てます。"
     ],
     "prerequisitesDeployTemplateFile": "",
     "lastUpdateTime": "2023-02-16T00:00:00.000Z",

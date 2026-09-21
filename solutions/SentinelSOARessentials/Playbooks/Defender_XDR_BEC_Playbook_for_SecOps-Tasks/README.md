@@ -5,7 +5,7 @@
 | 項目 | 値 |
 | --- | --- |
 | 積まれるタスク数 | **8** |
-| 日本語化 | **完了**（タスク名 8 件 / 本文 8 件すべて） |
+| 日本語化 | **完了**（メタデータ / タスク名 8 件 / 本文 8 件すべて） |
 | 取り込み日 | 2026 年 9 月 15 日 |
 | 検証 | ✅ 8 タスクの作成を確認済み。⚠️ 日本語表示は再デプロイ後に確認 |
 
@@ -37,7 +37,7 @@
 
 ### 3. 日本語化
 
-タスク名 8 件と本文 8 件を**すべて日本語にしました**。製品名（Microsoft Sentinel / Microsoft Defender XDR / Microsoft Defender for Office 365 / Threat Explorer など）、Advanced Hunting のテーブル名（CloudAppEvents、EmailEvents、UrlClickEvents、AuditLogs）、アクティビティ名（`New-InboxRule`、`Set-Mailbox` など）、URL は原文のまま残しています。
+テンプレートのタイトル、説明、デプロイ後の手順に加え、タスク名 8 件と本文 8 件を**すべて日本語にしました**。製品名（Microsoft Sentinel / Microsoft Defender XDR / Microsoft Defender for Office 365 / Threat Explorer など）、Advanced Hunting のテーブル名（CloudAppEvents、EmailEvents、UrlClickEvents、AuditLogs）、アクティビティ名（`New-InboxRule`、`Set-Mailbox` など）、URL は原文のまま残しています。
 
 あわせて、本文中の閉じ忘れの `<dt>` を `</dt>` に修正しました。
 
