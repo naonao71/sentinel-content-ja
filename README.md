@@ -13,13 +13,13 @@ Content Hub のコンテンツパックには、日本語環境で使う前に�
 - README の手順が、現在の画面に存在しない設定を指している
 - サンプル インシデントと実際の製品由来インシデントで入力データが異なる
 
-ここでは、原版の処理条件を変更せず、日本語化と表示上の修正を加えたものを公開しています。
+ここでは、原版の処理条件を変更せずに日本語化と表示上の修正を加えたものと、公開されている Microsoft Learn をもとにしたコミュニティ Playbook を公開しています。
 
 ## 収録内容
 
 | ソリューション | 状態 | 内容 |
 | --- | --- | --- |
-| [SentinelSOARessentials](solutions/SentinelSOAREssentials/) | ⚠️ 実製品由来インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版。**原版の判定ロジックを維持** |
+| [SentinelSOARessentials](solutions/SentinelSOAREssentials/) | ⚠️ 実インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版と、手動実行用の**共通インシデント対応タスク** |
 
 ## 構成
 
@@ -31,12 +31,12 @@ solutions/
     ├── README.md                  ← 修正の一覧と検証結果
     └── Playbooks/
         └── <Playbook 名>/
-            ├── azuredeploy.json          ← 日本語版（これを使う）
-            ├── azuredeploy.original.json ← 取り込み時点の本家（比較用）
+            ├── azuredeploy.json          ← デプロイするテンプレート
+            ├── azuredeploy.original.json ← 本家由来の場合のみ。取り込み時点の比較用
             └── README.md                 ← 変更点とデプロイ手順
 ```
 
-`azuredeploy.original.json` を残しているのは、**本家が更新されたときに差分を取れるようにする**ためです。
+本家由来の Playbook では、更新時に差分を取れるよう `azuredeploy.original.json` を残しています。コミュニティ Playbook には原版ファイルはありません。
 
 ## 使い方
 
