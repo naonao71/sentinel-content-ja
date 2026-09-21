@@ -1,6 +1,6 @@
-# Sentinel SOAR Essentials（日本語版）
+# Sentinel SOAR Essentials（日本語版・共通タスク）
 
-Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOAREssentials) に含まれる**タスク化 Playbook 3 本**を日本語化したものです。アラートの抽出、キーワード判定、タスク作成 Scope の配置は**原版のロジックを維持**しています。
+Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOAREssentials) に含まれる**タスク化 Playbook 3 本**の日本語版と、すべてのインシデントで使える**共通インシデント対応タスク**を収録しています。公式 3 本は、アラートの抽出、キーワード判定、タスク作成 Scope の配置について**原版のロジックを維持**しています。
 
 | 項目 | 値 |
 | --- | --- |
@@ -85,8 +85,22 @@ alerts                    : []
 | [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
 | [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ `Ransomware` を含む実アラートが紐づいたインシデントで要検証 |
 | [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ `BEC` を含む実アラートが紐づいたインシデントで要検証 |
+| [共通インシデント対応](Playbooks/Defender-XDR-Generic-Incident-Tasks-JA/) | 6 | 日本語で新規作成 | — | ⚠️ デプロイ・手動実行は未検証 |
 
 条件を一時的に迂回した検証では、タスク作成アクション自体が 6 / 25 / 8 件を作成できることを確認しました。ただし、これは**原版の判定ロジックが実際の製品由来インシデントで成立することの確認ではありません**。
+
+## 共通インシデント対応タスク
+
+`Defender-XDR-Generic-Incident-Tasks-JA` は、Defender ポータルのインシデント画面から必要なときに手動実行するコミュニティ Playbook です。
+
+- `[共通] はじめに`
+- `[共通] トリアージ`
+- `[共通] 調査と分析`
+- `[共通] 封じ込め`
+- `[共通] 回復`
+- `[共通] 解決と文書化`
+
+Phishing / Ransomware / BEC の詳細タスクを置き換えるものではありません。共通タスクを対応の土台とし、該当する脅威には公式 3 本の日本語版を追加します。
 
 ## 共通のデプロイ手順
 
