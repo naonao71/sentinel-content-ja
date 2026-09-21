@@ -19,7 +19,7 @@ Content Hub のコンテンツパックには、日本語環境で使う前に�
 
 | ソリューション | 状態 | 内容 |
 | --- | --- | --- |
-| [SentinelSOARessentials](solutions/SentinelSOAREssentials/) | ⚠️ 実インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版と、手動実行用の**共通インシデント対応タスク** |
+| [SentinelSOARessentials](solutions/SentinelSOARessentials/) | ⚠️ 実インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版と、手動実行用の**共通インシデント対応タスク** |
 | [Defender XDR 共通インシデント対応](playbooks/defender-xdr-generic-incident-tasks-ja/) | ✅ 実機確認済み | インシデント画面からオンデマンド実行し、共通タスク 6 件を追加するコミュニティ Playbook |
 
 ## 構成

@@ -1,6 +1,6 @@
 # Defender XDR BEC タスク（日本語版）
 
-[Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOAREssentials/Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks) の `Defender_XDR_BEC_Playbook_for_SecOps-Tasks` を日本語化し、文字化けと HTML を修正したものです。アラート判定ロジックと Scope 構造は原版を維持しています。
+[Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/a4446e65c08206da39193ef30bdf714da9ab1dcd/Solutions/SentinelSOARessentials/Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks) の `Defender_XDR_BEC_Playbook_for_SecOps-Tasks` を日本語化し、文字化けと HTML を修正したものです。アラート判定ロジックと Scope 構造は原版を維持しています。
 
 | 項目 | 値 |
 | --- | --- |
