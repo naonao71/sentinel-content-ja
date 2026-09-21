@@ -91,7 +91,7 @@ alerts                    : []
 
 ## 共通インシデント対応タスク
 
-`Defender-XDR-Generic-Incident-Tasks-JA` は、Defender ポータルのインシデント画面から必要なときに手動実行するコミュニティ Playbook です。
+`Defender-XDR-Generic-Incident-Tasks-JA` は、Defender ポータルのインシデント画面から必要なときにオンデマンド実行するコミュニティ Playbook です。Azure ポータルの Logic App からトリガーを直接実行する方式では、インシデント本文が渡らないため使用できません。
 
 - `[共通] はじめに`
 - `[共通] トリアージ`

@@ -1,12 +1,12 @@
 # Defender XDR 共通インシデント対応タスク（日本語）
 
-Microsoft Defender ポータルのインシデント画面から手動実行し、脅威の種類を問わず利用できる共通チェックリストを追加する Microsoft Sentinel Playbook です。
+Microsoft Defender ポータルのインシデント画面から**オンデマンド実行**し、脅威の種類を問わず利用できる共通チェックリストを追加する Microsoft Sentinel Playbook です。
 
 | 項目 | 値 |
 | --- | --- |
 | Logic App 名 | `Defender-XDR-Generic-Incident-Tasks-JA` |
 | トリガー | Microsoft Sentinel インシデント |
-| 想定する実行方法 | Defender ポータルのインシデント画面から手動実行 |
+| 想定する実行方法 | Defender ポータルのインシデント画面からオンデマンド実行 |
 | 作成するタスク | **6 件** |
 | 実行順序 | 逐次実行（同時実行数 1） |
 | 認証 | システム割り当てマネージド ID |
@@ -80,7 +80,7 @@ az role assignment create \
 
 詳細は [Microsoft Sentinel の Playbook を使用して脅威対応を自動化する](https://learn.microsoft.com/ja-jp/azure/sentinel/automate-responses-with-playbooks#prerequisites) を参照してください。
 
-## インシデント画面から実行する
+## インシデント画面からオンデマンド実行する
 
 1. Microsoft Defender ポータルで **[インシデントとアラート] > [インシデント]** を開きます。
 2. 対象インシデントを選択します。
@@ -88,7 +88,14 @@ az role assignment create \
 4. `Defender-XDR-Generic-Incident-Tasks-JA` を選択して実行します。
 5. インシデントのタスク パネルで、6 件が作成されたことを確認します。
 
-⚠️ Playbook 名のリンクから Azure ポータルの Logic App を開き、Logic App 側の **[実行]** を押さないでください。この経路ではインシデント本文が渡らず、`incidentArmId` が空になるため、`Add task to incident` が `BadRequest` になります。インシデント画面の一覧右端にある **[Playbook を実行する]** を使います。
+「手動実行」には、次の 2 種類があります。
+
+| 実行経路 | インシデント本文 | 本 Playbook |
+| --- | --- | --- |
+| Defender ポータルのインシデント画面で **[Playbook を実行する]** | 渡る | ✅ 使用する |
+| Azure ポータルの Logic App でトリガーを直接 **[実行]** | 渡らない | 🔴 使用できない |
+
+どちらも人が起動する操作ですが、Microsoft Sentinel のドキュメントでいう「インシデントに対するオンデマンドの手動実行」は前者です。後者では `incidentArmId` が空になるため、`Add task to incident` が `BadRequest` になります。
 
 ## 注意事項
 
@@ -108,7 +115,7 @@ Phishing / Ransomware / BEC に該当する場合、共通 6 件に加えて脅�
 
 ### 自動実行も可能
 
-インシデント トリガーを使用しているため、オートメーション ルールからも実行できます。ただし、すべてのインシデントへ自動適用すると Logic Apps の実行回数とタスク数が増えるため、本版は手動実行を推奨します。
+インシデント トリガーを使用しているため、オートメーション ルールからも実行できます。ただし、すべてのインシデントへ自動適用すると Logic Apps の実行回数とタスク数が増えるため、本版は**インシデント画面からのオンデマンド実行**を推奨します。
 
 ## 検証記録
 
