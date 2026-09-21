@@ -10,7 +10,7 @@ Microsoft Defender ポータルのインシデント画面から手動実行し�
 | 作成するタスク | **6 件** |
 | 実行順序 | 逐次実行（同時実行数 1） |
 | 認証 | システム割り当てマネージド ID |
-| 検証 | ✅ ARM 検証・デプロイ・接続・トリガー・RBACを確認。⚠️ インシデントからの手動実行は未実施 |
+| 検証 | ✅ インシデント番号 94 への実行で、6 件の作成と「はじめに」の自動完了を確認 |
 
 ## 位置づけ
 
@@ -88,6 +88,8 @@ az role assignment create \
 4. `Defender-XDR-Generic-Incident-Tasks-JA` を選択して実行します。
 5. インシデントのタスク パネルで、6 件が作成されたことを確認します。
 
+⚠️ Playbook 名のリンクから Azure ポータルの Logic App を開き、Logic App 側の **[実行]** を押さないでください。この経路ではインシデント本文が渡らず、`incidentArmId` が空になるため、`Add task to incident` が `BadRequest` になります。インシデント画面の一覧右端にある **[Playbook を実行する]** を使います。
+
 ## 注意事項
 
 ### 再実行するとタスクが重複する
@@ -121,5 +123,9 @@ Phishing / Ransomware / BEC に該当する場合、共通 6 件に加えて脅�
 - Logic App マネージド ID: `Microsoft Sentinel Responder`
 - 実行者: `Microsoft Sentinel Responder` / `Microsoft Sentinel Playbook Operator`
 - Microsoft Sentinel: `Microsoft Sentinel Automation Contributor`
+- インシデント番号 94 への実行: `Succeeded`
+- 作成タスク: 6 件
+- `[共通] はじめに`: `Completed`
+- その他 5 件: `New`
 
-インシデント画面からの手動実行と、タスク パネルへの 6 件の表示は未確認です。
+初回は Azure ポータルの Logic App から直接実行したため、トリガー本文の `Content-Length` が 0 となり、`incidentArmId = null` で失敗しました。インシデント本文を渡した再実行では成功しました。
