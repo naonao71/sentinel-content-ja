@@ -20,6 +20,7 @@ Content Hub のコンテンツパックには、日本語環境で使う前に�
 | ソリューション | 状態 | 内容 |
 | --- | --- | --- |
 | [SentinelSOARessentials](solutions/SentinelSOAREssentials/) | ⚠️ 実インシデントで要検証 | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の日本語版と、手動実行用の**共通インシデント対応タスク** |
+| [Defender XDR 共通インシデント対応](playbooks/defender-xdr-generic-incident-tasks-ja/) | ✅ 実機確認済み | インシデント画面からオンデマンド実行し、共通タスク 6 件を追加するコミュニティ Playbook |
 
 ## 構成
 
@@ -34,6 +35,11 @@ solutions/
             ├── azuredeploy.json          ← デプロイするテンプレート
             ├── azuredeploy.original.json ← 本家由来の場合のみ。取り込み時点の比較用
             └── README.md                 ← 変更点とデプロイ手順
+
+playbooks/
+└── <コミュニティ Playbook 名>/
+    ├── azuredeploy.json
+    └── README.md
 ```
 
 本家由来の Playbook では、更新時に差分を取れるよう `azuredeploy.original.json` を残しています。コミュニティ Playbook には原版ファイルはありません。
