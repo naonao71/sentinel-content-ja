@@ -10,6 +10,7 @@ Microsoft Defender ポータルのインシデント画面から手動実行し�
 | 作成するタスク | **6 件** |
 | 実行順序 | 逐次実行（同時実行数 1） |
 | 認証 | システム割り当てマネージド ID |
+| 検証 | ✅ ARM 検証・デプロイ・接続・トリガー・RBACを確認。⚠️ インシデントからの手動実行は未実施 |
 
 ## 位置づけ
 
@@ -106,3 +107,19 @@ Phishing / Ransomware / BEC に該当する場合、共通 6 件に加えて脅�
 ### 自動実行も可能
 
 インシデント トリガーを使用しているため、オートメーション ルールからも実行できます。ただし、すべてのインシデントへ自動適用すると Logic Apps の実行回数とタスク数が増えるため、本版は手動実行を推奨します。
+
+## 検証記録
+
+2026 年 9 月 21 日にラボ環境へデプロイし、次を確認しました。
+
+- ARM テンプレート検証: `Succeeded`
+- Logic App: `Enabled` / `Succeeded`
+- Microsoft Sentinel API 接続: `Ready`
+- インシデント トリガー: `Enabled` / `Registered`
+- タスク定義: `[共通]` で始まる 6 件
+- `Foreach` の同時実行数: `1`
+- Logic App マネージド ID: `Microsoft Sentinel Responder`
+- 実行者: `Microsoft Sentinel Responder` / `Microsoft Sentinel Playbook Operator`
+- Microsoft Sentinel: `Microsoft Sentinel Automation Contributor`
+
+インシデント画面からの手動実行と、タスク パネルへの 6 件の表示は未確認です。

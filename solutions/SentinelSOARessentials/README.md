@@ -85,7 +85,7 @@ alerts                    : []
 | [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ⚠️ 実際の MDO 由来インシデントで要検証 |
 | [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ `Ransomware` を含む実アラートが紐づいたインシデントで要検証 |
 | [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ `BEC` を含む実アラートが紐づいたインシデントで要検証 |
-| [共通インシデント対応](Playbooks/Defender-XDR-Generic-Incident-Tasks-JA/) | 6 | 日本語で新規作成 | — | ⚠️ デプロイ・手動実行は未検証 |
+| [共通インシデント対応](Playbooks/Defender-XDR-Generic-Incident-Tasks-JA/) | 6 | 日本語で新規作成 | — | ✅ デプロイ・接続・トリガー・RBAC確認済み。⚠️ 手動実行は未検証 |
 
 条件を一時的に迂回した検証では、タスク作成アクション自体が 6 / 25 / 8 件を作成できることを確認しました。ただし、これは**原版の判定ロジックが実際の製品由来インシデントで成立することの確認ではありません**。
 
