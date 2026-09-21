@@ -1,12 +1,13 @@
-# Defender XDR Ransomware タスク（統合ポータル対応版）
+# Defender XDR Ransomware タスク（日本語版）
 
 [Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials/Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks) の `Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks` を、統合ポータル（Microsoft Defender ポータル）で動くように修正したものです。
 
 | 項目 | 値 |
 | --- | --- |
 | 積まれるタスク数 | **25** |
+| 日本語化 | **完了**（タスク名 25 件 / 本文 25 件すべて） |
 | 取り込み日 | 2026 年 9 月 15 日 |
-| 検証 | ✅ 25 タスクの作成を確認 |
+| 検証 | ✅ 25 タスクの作成を確認済み。⚠️ 日本語表示は再デプロイ後に確認 |
 
 ## ファイル
 
@@ -34,9 +35,45 @@
 
 **修正内容**: `<dt>` 内は `◆`、`<dd>` 内は `◇` に置き換え
 
+### 3. 日本語化
+
+タスク名 25 件と本文 25 件を**すべて日本語にしました**。製品名（Microsoft Sentinel / Microsoft Defender XDR / Microsoft Defender Antivirus など）、KQL、検出名（IOA 名）、URL は原文のまま残しています。MITRE の戦術ラベルは、初期アクセス、実行、防御回避、横展開、権限昇格、影響に統一しました。
+
+あわせて、本文中の壊れた HTML タグ（`<a/>` → `</a>`、閉じ忘れの `<dt>` → `</dt>`）を修正しました。
+
+| 本家 | 日本語版 |
+| --- | --- |
+| Introduction | はじめに |
+| Containment - Step 1: Assess the scope of the incident | 封じ込め - ステップ 1: インシデントの影響範囲を評価する |
+| Containment - Step 2: Preserve existing systems | 封じ込め - ステップ 2: 既存システムを保全する |
+| Containment - Step 3.1 / 3.2: Prevent the spread | 封じ込め - ステップ 3.1 / 3.2: 拡散を防止する |
+| Investigation - Assess the current situation | 調査 - 現在の状況を評価する |
+| Investigation - Identify the ransomware process | 調査 - ランサムウェアのプロセスを特定する |
+| Investigation - Look for exposed credentials ... | 調査 - 感染したデバイスで露出した資格情報を探す |
+| Investigate - Identify the line of business (LOB) apps ... | 調査 - インシデントにより利用できなくなった基幹業務 (LOB) アプリを特定する |
+| Eradication and recovery - Step 1〜9 | 根絶と復旧 - ステップ 1〜9 |
+| More data about Human-operated ransomware | 人間が操作するランサムウェアに関する詳細情報 |
+| Prevention - Device protection: Part 1 / Part 2 | 予防 - デバイス保護: パート 1 / パート 2 |
+| Prevention - Email management | 予防 - メール管理 |
+| Prevention - Identity protection | 予防 - ID 保護 |
+| Prevention - Information protection | 予防 - 情報保護 |
+| Prevention - Vulnerability management | 予防 - 脆弱性管理 |
+
 ## 積まれるタスク
 
-封じ込め 4 段階 / 調査 4 項目 / 根絶と復旧 9 ステップ / 予防 6 分野
+はじめに 1 件 / 封じ込め 4 件 / 調査 4 件 / 根絶と復旧 9 件 / 人間が操作するランサムウェアに関する詳細情報 1 件 / 予防 6 件 = **25 件**
+
+根絶と復旧の 9 ステップは次のとおりです。
+
+1. バックアップを確認する
+2. インジケーターを追加する
+3. 侵害されたユーザーをリセットする
+4. 攻撃者の制御ポイントを隔離する
+5. マルウェアを駆除する
+6. クリーンアップ済みデバイスのファイルを復旧する
+7. OneDrive for Business のファイルを復旧する
+8. 削除されたメールを復旧する
+9. Exchange ActiveSync と OneDrive 同期を再度有効にする
 
 ## デプロイ
 

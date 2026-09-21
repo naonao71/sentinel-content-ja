@@ -98,7 +98,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Contain')}</p>",
-                      "taskTitle": "Contain"
+                      "taskTitle": "封じ込め"
                     },
                     "host": {
                       "connection": {
@@ -112,7 +112,7 @@
                 "Compose_-_Contain": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "<dt><b>◆ Which assets are involved?</b></dt>\n<dd>◇ If an endpoint performed any suspicious activity, consider <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts#isolate-devices-from-the-network\">isolating the device</a> in M365D or <a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/sentinel/respond-threats-during-investigation\">from Microsoft Sentinel</a>.</dd>\n<dt><b>◆ Which user accounts are involved and what are their privileges?</b></dt>\n<dd>◇ To assess the risk, first determine whether the user accounts are priority, management, or administrator accounts.</dd>\n<dt><b>◆ What containments actions were already taken by automated response?</b></dt>\n<dd>◇ What is the evidence remediation status?</dd>\n<dd>◇ Check evidence & response tab in M365D portal for <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/air-review-approve-pending-completed-actions\">pending approval actions</a>.</dd>"
+                  "inputs": "<dt><b>◆ どの資産が関係していますか？</b></dt>\n<dd>◇ 端末が不審な動作をしていた場合は、Microsoft Defender XDR で<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts#isolate-devices-from-the-network\">デバイスを隔離</a>するか、<a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/sentinel/respond-threats-during-investigation\">Microsoft Sentinel から実行</a>することを検討します。</dd>\n<dt><b>◆ どのユーザー アカウントが関係し、どのような権限を持っていますか？</b></dt>\n<dd>◇ リスクを評価するため、まず対象が優先度の高いアカウント、管理職のアカウント、管理者アカウントのいずれかに該当するかを確認します。</dd>\n<dt><b>◆ 自動応答によって、すでにどの封じ込め措置が実行されていますか？</b></dt>\n<dd>◇ 証拠の修復状況はどうなっていますか？</dd>\n<dd>◇ Defender ポータルの「証拠と対応」タブで、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/air-review-approve-pending-completed-actions\">承認待ちのアクション</a>を確認します。</dd>"
                 }
               },
               "runAfter": {
@@ -135,7 +135,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Introduction')}</p>",
-                      "taskTitle": "Introduction"
+                      "taskTitle": "はじめに"
                     },
                     "host": {
                       "connection": {
@@ -149,7 +149,7 @@
                 "Compose_-_Introduction": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "<dt>This playbook will walk you through four stages of responding to a business email compromise (BEC) incident: containment, investigation, remediation and prevention. The step-by-step instructions will help you take the required remedial action to protect information and minimize further risks.</dt>\n<dt>Click on \"Contain\" task when you're ready to start.</dt>"
+                  "inputs": "<dt>この Playbook では、ビジネス メール詐欺 (BEC) インシデントへの対応を、封じ込め・調査・修復・予防の 4 つの段階に分けて進めます。手順に沿って対応することで、情報を保護し、その後のリスクを最小限に抑えられます。</dt>\n<dt>準備ができたら、「封じ込め」タスクを開いてください。</dt>"
                 },
                 "Mark_a_task_as_completed_-_Introduction": {
                   "runAfter": {
@@ -188,7 +188,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_1')}</p>",
-                      "taskTitle": "Investigation - Step 1"
+                      "taskTitle": "調査 - ステップ 1"
                     },
                     "host": {
                       "connection": {
@@ -210,7 +210,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_2')}</p>",
-                      "taskTitle": "Investigation - Step 2"
+                      "taskTitle": "調査 - ステップ 2"
                     },
                     "host": {
                       "connection": {
@@ -232,7 +232,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_3')}</p>",
-                      "taskTitle": "Investigation - Step 3"
+                      "taskTitle": "調査 - ステップ 3"
                     },
                     "host": {
                       "connection": {
@@ -254,7 +254,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Step_4')}</p>",
-                      "taskTitle": "Investigation - Step 4"
+                      "taskTitle": "調査 - ステップ 4"
                     },
                     "host": {
                       "connection": {
@@ -268,7 +268,7 @@
                 "Compose_-_Investigation_-_Step_1": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "<dt>For each user involved in the incident:</dt>\n<dt><b>1.\tInvestigate the user account for suspicious actions and determine initial method of compromise:</b>\n<dd>1.\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/sentinel/investigate-with-ueba\">Investigate users with Microsoft Sentinel UEBA</a> and <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users\">Investigate users in Microsoft 365 Defender</a>.</dd>\n<dd>2.\tSearch for recently clicked links by the user: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/urlclickevents\">UrlClickEvents in Microsoft Sentinel Logs</a> or <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-urlclickevents-table\">UrlClickEvents in advanced hunting</a>.</dd>\n<dd>3.\tCheck for risky signs: <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/identity-protection/howto-identity-protection-investigate-risk\">Investigate risk in Azure AD Identity Protection</a>.</dd>\n<dd>4.\tCheck for messages reported by the user as spam or phishing: <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/admin-submission#view-user-submissions-to-microsoft\">View user submissions to Microsoft</a>.</dd>\n<dt>Continue to Investigation - Step 2</dt>"
+                  "inputs": "<dt>インシデントに関係する各ユーザーについて、次を確認します。</dt>\n<dt><b>1.\tユーザー アカウントに不審な操作が無いかを調査し、最初の侵害経路を特定します。</b></dt>\n<dd>1.\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/sentinel/investigate-with-ueba\">Microsoft Sentinel UEBA でユーザーを調査する</a>、および <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users\">Microsoft 365 Defender でユーザーを調査する</a>。</dd>\n<dd>2.\tユーザーが最近クリックしたリンクを検索します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/urlclickevents\">Microsoft Sentinel Logs の UrlClickEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-urlclickevents-table\">Advanced Hunting の UrlClickEvents</a>。</dd>\n<dd>3.\tリスクの兆候を確認します: <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/identity-protection/howto-identity-protection-investigate-risk\">Azure AD Identity Protection でリスクを調査する</a>。</dd>\n<dd>4.\tユーザーがスパムまたはフィッシングとして報告したメッセージを確認します: <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/admin-submission#view-user-submissions-to-microsoft\">ユーザーから Microsoft への送信を表示する</a>。</dd>\n<dt>続けて「調査 - ステップ 2」に進みます。</dt>"
                 },
                 "Compose_-_Investigation_-_Step_2": {
                   "runAfter": {
@@ -277,7 +277,7 @@
                     ]
                   },
                   "type": "Compose",
-                  "inputs": "<dt><b>2.\tWhat is the <a target='_blank' href=\"https://docs.microsoft.com/defender-cloud-apps/tutorial-ueba#understand-the-investigation-priority-score\">investigation priority score</a> of the user account?</b><dt>\n<dt>Continue to Investigation - Step 3</dt>"
+                  "inputs": "<dt><b>2.\tそのユーザー アカウントの<a target='_blank' href=\"https://docs.microsoft.com/defender-cloud-apps/tutorial-ueba#understand-the-investigation-priority-score\">調査優先度スコア</a>はどのくらいですか？</b></dt>\n<dt>続けて「調査 - ステップ 3」に進みます。</dt>"
                 },
                 "Compose_-_Investigation_-_Step_3": {
                   "runAfter": {
@@ -286,7 +286,7 @@
                     ]
                   },
                   "type": "Compose",
-                  "inputs": "<dt><b>3.\tInvestigate the user's activities: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/cloudappevents\">CloudAppEvents in Microsoft Sentinel Logs</a> or <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-cloudappevents-table\">CloudAppEvents in advanced hunting</a>:</b></dt>\n<dd>◇  Have suspicious Inbox rules been recently configured for the mailbox?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity names: \"New-InboxRule\", \"Set-InboxRule\", or \"UpdateInboxRules\".</dd>\n<dd>◇  Has SMTP forwarding been recently configured on the mailbox?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity name: \"Set-Mailbox\" with the \"ForwardingSmtpAddress\" parameter.</dd>\n<dd>◇  Has the user recently registered new devices?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity name: \"Add registered owner to device\".</dd>\n<dd>◇  Has the user recently created new Power Automate tasks?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity name: \"CreateFlow\".</dd>\n<dd>◇  Has a passwordless login method been recently enabled for the user?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity name: \"Update user\" with the \"SearchableDeviceKey\" property modified.</dd>\n<dd>◇  Has a new multi-factor authentication (MFA) method been recently enabled for the user?</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tInvestigate in the <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs\">AuditLogs in Microsoft Sentinel Logs</a> or <a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/active-directory/reports-monitoring/concept-audit-logs\">Azure AD audit logs</a>.</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tActivity type: \"User registered security info\".</dd>\n<dt>Continue to Investigation - Step 4</dt>"
+                  "inputs": "<dt><b>3.\tユーザーのアクティビティを調査します: <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/cloudappevents\">Microsoft Sentinel Logs の CloudAppEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-cloudappevents-table\">Advanced Hunting の CloudAppEvents</a>:</b></dt>\n<dd>◇  メールボックスに不審な受信トレイ ルールが最近作成されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"New-InboxRule\"、\"Set-InboxRule\"、\"UpdateInboxRules\"。</dd>\n<dd>◇  メールボックスに SMTP 転送が最近設定されていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"ForwardingSmtpAddress\" パラメーターを伴う \"Set-Mailbox\"。</dd>\n<dd>◇  ユーザーが最近、新しいデバイスを登録していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"Add registered owner to device\"。</dd>\n<dd>◇  ユーザーが最近、新しい Power Automate のタスクを作成していませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"CreateFlow\"。</dd>\n<dd>◇  ユーザーに対して、パスワードレス サインインの方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティ名: \"SearchableDeviceKey\" プロパティが変更された \"Update user\"。</dd>\n<dd>◇  ユーザーに対して、新しい多要素認証 (MFA) の方法が最近有効にされていませんか？</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/auditlogs\">Microsoft Sentinel Logs の AuditLogs</a>、または <a target='_blank' href=\"https://learn.microsoft.com/en-gb/azure/active-directory/reports-monitoring/concept-audit-logs\">Azure AD の監査ログ</a>で調査します。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\tアクティビティの種類: \"User registered security info\"。</dd>\n<dt>続けて「調査 - ステップ 4」に進みます。</dt>"
                 },
                 "Compose_-_Investigation_-_Step_4": {
                   "runAfter": {
@@ -295,7 +295,7 @@
                     ]
                   },
                   "type": "Compose",
-                  "inputs": "<dt><b>4.\tInvestigate email messages sent by the user.</b></dt>\n<dd>◇  Use <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/emailevents\"> EmailEvents in Microsoft Sentinel Logs</a> or <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-emailevents-table\">M365D advanced hunting</a>, and filter table by \"SenderObjectId\" to find suspicious messages sent on behalf of the user.</dd>"
+                  "inputs": "<dt><b>4.\tユーザーが送信したメール メッセージを調査します。</b></dt>\n<dd>◇  <a target='_blank' href=\"https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/emailevents\"> Microsoft Sentinel Logs の EmailEvents</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-emailevents-table\">Microsoft Defender XDR の Advanced Hunting</a> を使い、\"SenderObjectId\" でテーブルを絞り込んで、ユーザーになりすまして送信された不審なメッセージを探します。</dd>"
                 }
               },
               "runAfter": {
@@ -318,7 +318,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Prevention')}</p>",
-                      "taskTitle": "Prevention"
+                      "taskTitle": "予防"
                     },
                     "host": {
                       "connection": {
@@ -332,7 +332,7 @@
                 "Compose_-_Prevention": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "<dt>◆  If you haven't already, configure muti-factor authentication (MFA) and conditional access for all users. Follow the recommendations at <a target='_blank' href=\"https://docs.microsoft.com/azure/security/fundamentals/identity-management-best-practices\">Azure Identity Management and access control security best practices</a>.</dt>\n<dt>◆  If the entry vector for this incident was phishing messages, verify that Microsoft Defender for Office 365 is configured according to <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365\">recommended best practices</a>.</dt>  \n<dt>◆  If external email forwarding and forwarding alerts were involved in this incident, <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/external-email-forwarding\">control automatic external email forwarding</a>.</dt>"
+                  "inputs": "<dt>◆  まだ設定していない場合は、すべてのユーザーに多要素認証 (MFA) と条件付きアクセスを構成します。<a target='_blank' href=\"https://docs.microsoft.com/azure/security/fundamentals/identity-management-best-practices\">Azure の ID 管理とアクセス制御のセキュリティに関するベスト プラクティス</a>の推奨事項に従ってください。</dt>\n<dt>◆  このインシデントの侵入経路がフィッシング メールだった場合は、Microsoft Defender for Office 365 が<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365\">推奨されるベスト プラクティス</a>に従って構成されているかを確認します。</dt>  \n<dt>◆  このインシデントに外部へのメール転送や転送アラートが関係していた場合は、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/external-email-forwarding\">外部への自動メール転送を制御</a>します。</dt>"
                 }
               },
               "runAfter": {
@@ -355,7 +355,7 @@
                     "body": {
                       "incidentArmId": "@triggerBody()?['object']?['id']",
                       "taskDescription": "<p>@{outputs('Compose_-_Remediation')}</p>",
-                      "taskTitle": "Remediation"
+                      "taskTitle": "修復"
                     },
                     "host": {
                       "connection": {
@@ -369,7 +369,7 @@
                 "Compose_-_Remediation": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "<dt><b>◆  Mark the incident as a True Positive.</b></dt>\n<dt><b>◆  For user accounts with suspicious activity, take the following actions:</b></dt>\n<dd>◇  Contact the affected user.</dd>\n<dd>◇  Reset the account password.</dd>\n<dd>◇  Require the user to sign out and sign in again.</dd>\n<dd>◇  Remove any recent devices or applications that were registered.</dd>\n<dd>◇  Remove any recent passwordless authentication methods that were registered.</dd>\n<dd>◇  Remove any recent multi-factor authentication (MFA) methods that were registered.</dd>\n<dt><b>◆  Use <a target='_blank' href=\"https://security.microsoft.com/threatexplorer\">Threat Explorer</a> to identify malicious messages sent to internal recipients. Submit the messages to Microsoft for analysis and delete them from other mailboxes.</b></dt>\n<dt><b>◆  If a forwarding rule was created during this incident, remove the forwarding rule and block the forwarding address.</b></dt>"
+                  "inputs": "<dt><b>◆  インシデントを True Positive（真陽性）として分類します。</b></dt>\n<dt><b>◆  不審なアクティビティがあったユーザー アカウントについては、次の対応を行います。</b></dt>\n<dd>◇  該当するユーザーに連絡します。</dd>\n<dd>◇  アカウントのパスワードをリセットします。</dd>\n<dd>◇  ユーザーにサインアウトと再サインインを求めます。</dd>\n<dd>◇  最近登録されたデバイスやアプリケーションがあれば削除します。</dd>\n<dd>◇  最近登録されたパスワードレス認証の方法があれば削除します。</dd>\n<dd>◇  最近登録された多要素認証 (MFA) の方法があれば削除します。</dd>\n<dt><b>◆  <a target='_blank' href=\"https://security.microsoft.com/threatexplorer\">Threat Explorer</a> を使って、社内の受信者へ送られた悪意のあるメッセージを特定します。そのメッセージは Microsoft へ分析のために送信し、他のメールボックスからも削除します。</b></dt>\n<dt><b>◆  このインシデントで転送ルールが作成されていた場合は、その転送ルールを削除し、転送先アドレスをブロックします。</b></dt>"
                 }
               },
               "runAfter": {

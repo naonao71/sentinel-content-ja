@@ -78,7 +78,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Containment_-_Step_1')}</p>",
-                          "taskTitle": "Containment - Step 1: Assess the scope of the incident"
+                          "taskTitle": "封じ込め - ステップ 1: インシデントの影響範囲を評価する"
                         },
                         "host": {
                           "connection": {
@@ -100,7 +100,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Containment_-_Step_2')}</p>",
-                          "taskTitle": "Containment -Step 2: Preserve existing systems"
+                          "taskTitle": "封じ込め - ステップ 2: 既存システムを保全する"
                         },
                         "host": {
                           "connection": {
@@ -122,7 +122,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Containment_-_Step_3.1')}</p>",
-                          "taskTitle": "Containment -Step 3.1: Prevent the spread"
+                          "taskTitle": "封じ込め - ステップ 3.1: 拡散を防止する"
                         },
                         "host": {
                           "connection": {
@@ -144,7 +144,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Containment_-_Step_3.2')}</p>",
-                          "taskTitle": "Containment -Step 3.2: Prevent the spread"
+                          "taskTitle": "封じ込め - ステップ 3.2: 拡散を防止する"
                         },
                         "host": {
                           "connection": {
@@ -158,7 +158,7 @@
                     "Compose_-_Containment_-_Step_1": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt>Containment and investigation should occur as simultaneously as possible; however, you should focus on quickly achieving containment, so you have more time to investigate. These steps help you determine the scope of the attack and to isolate it to only affected entities, such as user accounts and devices.</dt>\n<dt>Run through this list of questions and tasks to discover the extent of the attack. Microsoft Sentinel and Microsoft 365 Defender can provide a consolidated view of all impacted or at-risk assets to aid in your incident response assessment. See <a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation\">Respond to threat actors while investigating or threat hunting in Microsoft Sentinel</a> or <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/incidents-overview?view=o365-worldwide\">Incident response with Microsoft 365 Defender</a>. You can use the alerts and the evidence list in the incident to determine:</dt>\n<dt><b>◆  Which user accounts might be compromised?</b></dt>\n<dd>o\tWhich accounts were used to deliver the payload?</dd>\n<dt><b>◆  Which <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/investigate-machines?view=o365-worldwide\">onboarded</a> and <a href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/device-discovery?view=o365-worldwide\">discovered</a> devices are affected and how?</b></dt>\n<dd>o\tOriginating devices</dd>\n<dd>o\tImpacted devices</dd>\n<dd>o\tSuspicious devices</dd>\n<dt><b>◆  Identify any network communication that is associated with the incident.</b></dt>\n<dt><b>◆  Which applications are affected?</b></dt>\n<dt><b>◆  What payloads were spread?</b></dt>\n<dt><b>◆  How is the attacker communicating with the compromised devices? (Network protection must be <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-network-protection?view=o365-worldwide\">enabled</a>):</b></dt>\n<dd>o\tGo to the <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/indicator-ip-domain?view=o365-worldwide#create-an-indicator-for-ips-urls-or-domains-from-the-settings-page\">indicators page</a> to add a block for the IP and URL (if you have that information).</dd>\n<dd>o\t<a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/add-entity-to-threat-intelligence?tabs=incidents\">Add entities to threat intelligence in Microsoft Sentinel</a></dd>\n<dt><b>◆  What was the payload delivery medium?</b></dt>"
+                      "inputs": "<dt>封じ込めと調査は、可能な限り並行して進めます。ただし調査の時間を確保するため、まずは迅速な封じ込めに集中してください。以下の手順は、攻撃の範囲を把握し、影響を受けたユーザー アカウントやデバイスだけに切り分けるのに役立ちます。</dt>\n<dt>次の質問と作業を順に確認し、攻撃の広がりを把握します。Microsoft Sentinel と Microsoft 365 Defender は、影響を受けた資産やリスクのある資産を一元的に表示し、インシデント対応の評価に役立ちます。<a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation\">Microsoft Sentinel での調査や脅威ハンティング中に攻撃者へ対応する</a>、または <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/incidents-overview?view=o365-worldwide\">Microsoft 365 Defender でのインシデント対応</a>を参照してください。インシデント内のアラートと証拠の一覧から、次の点を判断できます。</dt>\n<dt><b>◆  侵害された可能性のあるユーザー アカウントはどれですか？</b></dt>\n<dd>◇  ペイロードの配信に使われたアカウントはどれですか？</dd>\n<dt><b>◆  影響を受けた<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/investigate-machines?view=o365-worldwide\">オンボード済み</a>デバイスと<a href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/device-discovery?view=o365-worldwide\">検出済み</a>デバイスはどれで、どのような影響を受けていますか？</b></dt>\n<dd>◇  攻撃の起点となったデバイス</dd>\n<dd>◇  影響を受けたデバイス</dd>\n<dd>◇  疑わしいデバイス</dd>\n<dt><b>◆  インシデントに関連するネットワーク通信を特定します。</b></dt>\n<dt><b>◆  影響を受けたアプリケーションはどれですか？</b></dt>\n<dt><b>◆  どのようなペイロードが拡散しましたか？</b></dt>\n<dt><b>◆  攻撃者は侵害されたデバイスとどのように通信していますか？（ネットワーク保護が<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-network-protection?view=o365-worldwide\">有効</a>である必要があります）:</b></dt>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/indicator-ip-domain?view=o365-worldwide#create-an-indicator-for-ips-urls-or-domains-from-the-settings-page\">インジケーター ページ</a>を開き、判明している IP アドレスと URL のブロックを追加します。</dd>\n<dd>◇  <a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/add-entity-to-threat-intelligence?tabs=incidents\">Microsoft Sentinel で脅威インテリジェンスにエンティティを追加する</a></dd>\n<dt><b>◆  ペイロードの配信経路は何でしたか？</b></dt>"
                     },
                     "Compose_-_Containment_-_Step_2": {
                       "runAfter": {
@@ -167,7 +167,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>Run through this list of tasks and questions to protect existing systems from attack:<dt>\n<dt><b>◆  If you have online backups, consider disconnecting the backup system from the network until you are confident that the attack is contained, see <a target='_blank' href=\"https://docs.microsoft.com/security/compass/backup-plan-to-protect-against-ransomware\">Backup and restore plan to protect against ransomware</a>.</b><dt>\n<dt><b>◆  If you are experiencing or expect an imminent and active ransomware deployment:</b><dt>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users?view=o365-worldwide\">Suspend privileged and local accounts</a> that you suspect are part of the attack. You can do this from the Users tab in the properties of the incident in the Microsoft 365 Defender portal, or <a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/investigate-with-ueba\">Investigate users with Microsoft Sentinel UEBA</a>.</dd>\n<dd>o\tStop all <a target='_blank' href=\"https://docs.microsoft.com/defender-for-identity/playbook-domain-dominance\">remote logon sessions</a>.</dd>\n<dd>o\tReset the compromised user account passwords and require the users of compromised user accounts to sign in again - <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Respond to threat actors while investigating or threat hunting in Microsoft Sentinel</a></dd>\n<dd>o\tDo the same for user accounts that might be compromised.</dd>\n<dd>o\tIf shared local accounts are compromised, have your IT admin help you to enforce a password change across all exposed devices. Example Kusto query:</dd>\n<dd><code>DeviceLogonEvents | where DeviceName  contains (AccountDomain) | take 10</code></dd>\n<dt><b>◆  For the devices that are not yet isolated and are not part of the critical infrastructure:</b><dt>\n<dd>o\tIsolate compromised devices from the network but do not shut them off  - <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Respond to threat actors while investigating or threat hunting in Microsoft Sentinel</a></dd>\n<dd>o\tIf you identify the originating or spreader devices, isolate those first.</dd>\n<dt><b>◆  Preserve compromised systems for analysis.</b><dt>"
+                      "inputs": "<dt>既存のシステムを攻撃から保護するため、次の作業と質問を順に確認します。</dt>\n<dt><b>◆  オンライン バックアップがある場合は、攻撃を封じ込めたと確信できるまで、バックアップ システムをネットワークから切り離すことを検討します。<a target='_blank' href=\"https://docs.microsoft.com/security/compass/backup-plan-to-protect-against-ransomware\">ランサムウェアから保護するためのバックアップと復元の計画</a>を参照してください。</b></dt>\n<dt><b>◆  ランサムウェアの展開が進行中、または差し迫っている場合:</b></dt>\n<dd>◇  攻撃に関与していると疑われる<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/investigate-users?view=o365-worldwide\">特権アカウントとローカル アカウントを一時停止</a>します。Microsoft 365 Defender ポータルでインシデントのプロパティを開き、[ユーザー] タブから実行できます。<a target='_blank' href=\"https://learn.microsoft.com/azure/sentinel/investigate-with-ueba\">Microsoft Sentinel UEBA でユーザーを調査する</a>こともできます。</dd>\n<dd>◇  すべての<a target='_blank' href=\"https://docs.microsoft.com/defender-for-identity/playbook-domain-dominance\">リモート ログオン セッション</a>を停止します。</dd>\n<dd>◇  侵害されたユーザー アカウントのパスワードをリセットし、該当ユーザーに再度サインインさせます - <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Microsoft Sentinel での調査や脅威ハンティング中に攻撃者へ対応する</a></dd>\n<dd>◇  侵害された可能性のあるユーザー アカウントについても同様に対応します。</dd>\n<dd>◇  共有のローカル アカウントが侵害された場合は、IT 管理者の協力を得て、露出したすべてのデバイスでパスワード変更を強制します。Kusto クエリの例:</dd>\n<dd><code>DeviceLogonEvents | where DeviceName  contains (AccountDomain) | take 10</code></dd>\n<dt><b>◆  まだ分離されておらず、重要インフラにも該当しないデバイスについて:</b></dt>\n<dd>◇  侵害されたデバイスをネットワークから分離します。ただし電源は切らないでください - <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Microsoft Sentinel での調査や脅威ハンティング中に攻撃者へ対応する</a></dd>\n<dd>◇  攻撃の起点となったデバイスや拡散元のデバイスを特定できた場合は、それらを最初に分離します。</dd>\n<dt><b>◆  分析のため、侵害されたシステムを保全します。</b></dt>"
                     },
                     "Compose_-_Containment_-_Step_3.1": {
                       "runAfter": {
@@ -176,7 +176,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>Use this list to keep the attack from spreading to additional entities.</dt>\n<dt><b>◆  If shared local accounts are being used in the attack, consider <a target='_blank' href=\"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/blocking-remote-use-of-local-accounts/ba-p/701042\">Blocking Remote Use of Local Accounts</a>.</b></dt>\n<dd>o\tKusto query for all network logons that are local admins:</dd>\n<dd><code>DeviceLogonEvents\n<br>| where IsLocalAdmin == true and AccountDomain == DeviceName<br>\n| extend IsLocalLogon = tobool(todynamic(AdditionalFields).IsLocalLogon)<br>\n| where IsLocalLogon==false</code></dd>\n<dd>o\tKusto query for non-RDP logons (more realistic for most networks):</dd>\n<dd><code>DeviceLogonEvents<br>\n| where IsLocalAdmin == true and AccountDomain == DeviceName and LogonType != 'RemoteInteractive'<br>\n| extend IsLocalLogon = tobool(todynamic(AdditionalFields).IsLocalLogon)<br>\n| where IsLocalLogon==false</code></dd>\n<dt><b>◆  Quarantine and add indicators for files that are infected.</b></dt>\n<dt><b>◆  Ensure that your antivirus solution is configurable in its optimal protection state. For Microsoft Defender Antivirus, this includes:</b></dt>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus?view=o365-worldwide#real-time-protection-policy-settings\">Real time protection</a> is enabled.</dd>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide\">Tamper protection</a> is enabled. In the Microsoft 365 Defender portal, select Settings > Endpoints > Advanced features > Tamper protection.</dd>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-attack-surface-reduction?view=o365-worldwide\">Attack surface reduction (ASR)</a> rules are enabled.</dd>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-cloud-protection-microsoft-defender-antivirus?view=o365-worldwide\">Cloud protectio</a>n is enabled.</dd>\n<dt>Continue to the task - Containment - Step 3.2: Prevent the spread</dt>"
+                      "inputs": "<dt>攻撃が他のエンティティへ広がるのを防ぐため、次の項目を確認します。</dt>\n<dt><b>◆  攻撃で共有のローカル アカウントが使われている場合は、<a target='_blank' href=\"https://techcommunity.microsoft.com/t5/microsoft-security-baselines/blocking-remote-use-of-local-accounts/ba-p/701042\">ローカル アカウントのリモート利用のブロック</a>を検討します。</b></dt>\n<dd>◇  ローカル管理者によるネットワーク ログオンをすべて抽出する Kusto クエリ:</dd>\n<dd><code>DeviceLogonEvents\n<br>| where IsLocalAdmin == true and AccountDomain == DeviceName<br>\n| extend IsLocalLogon = tobool(todynamic(AdditionalFields).IsLocalLogon)<br>\n| where IsLocalLogon==false</code></dd>\n<dd>◇  RDP 以外のログオンを抽出する Kusto クエリ（多くのネットワークではこちらが実態に近い）:</dd>\n<dd><code>DeviceLogonEvents<br>\n| where IsLocalAdmin == true and AccountDomain == DeviceName and LogonType != 'RemoteInteractive'<br>\n| extend IsLocalLogon = tobool(todynamic(AdditionalFields).IsLocalLogon)<br>\n| where IsLocalLogon==false</code></dd>\n<dt><b>◆  感染したファイルを検疫し、インジケーターを追加します。</b></dt>\n<dt><b>◆  ウイルス対策ソリューションが最適な保護状態に構成されていることを確認します。Microsoft Defender Antivirus の場合は次のとおりです。</b></dt>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus?view=o365-worldwide#real-time-protection-policy-settings\">リアルタイム保護</a>が有効になっている。</dd>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide\">改ざん防止</a>が有効になっている。Microsoft 365 Defender ポータルで [設定] > [エンドポイント] > [高度な機能] > [改ざん防止] を選択します。</dd>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-attack-surface-reduction?view=o365-worldwide\">攻撃面の減少 (ASR)</a> ルールが有効になっている。</dd>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-cloud-protection-microsoft-defender-antivirus?view=o365-worldwide\">クラウド保護</a>が有効になっている。</dd>\n<dt>続けて「封じ込め - ステップ 3.2: 拡散を防止する」タスクに進みます。</dt>"
                     },
                     "Compose_-_Containment_-_Step_3.2": {
                       "runAfter": {
@@ -185,7 +185,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>◆  Disable Exchange ActiveSync and OneDrive sync.</b></dt>\n<dd>o\tTo disable Exchange ActiveSync for a mailbox, see <a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/enable-or-disable-exchange-activesync\">How to disable Exchange ActiveSync for users in Exchange Online</a>.</dd>\n<dd>o\tTo disable other types of access to a mailbox, see:</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/enable-or-disable-mapi\">Enable or disable MAPI for a mailbox</a>.</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://docs.microsoft.com/exchange/clients-and-mobile-in-exchange-online/pop3-and-imap4/enable-or-disable-pop3-or-imap4-access\">Enable or Disable POP3 or IMAP4 access for a user<a/>.</dd>\n<dd>o\tPausing OneDrive sync will help protect your cloud data from being updated by potentially infected devices. For more information, see <a target='_blank' href=\"https://support.microsoft.com/office/how-to-pause-and-resume-sync-in-onedrive-2152bfa4-a2a5-4d3a-ace8-92912fb4421e\">How to Pause and Resume sync in OneDrive</a>.</dd>\n<dt><b>◆  Apply relevant patches and configuration changes on affected systems.</b></dt>\n<dt><b>◆  Block ransomware communications using internal and external controls.</b></dt>\n<dt><b>◆  Purge cached content</b></dt>"
+                      "inputs": "<dt><b>◆  Exchange ActiveSync と OneDrive 同期を無効にします。</b></dt>\n<dd>◇  メールボックスの Exchange ActiveSync を無効にする方法は、<a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/enable-or-disable-exchange-activesync\">Exchange Online でユーザーの Exchange ActiveSync を無効にする方法</a>を参照してください。</dd>\n<dd>◇  メールボックスへのその他のアクセス方法を無効にするには、次を参照してください。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/enable-or-disable-mapi\">メールボックスの MAPI を有効または無効にする</a>。</dd>\n<dd>&nbsp;&nbsp;&nbsp;&nbsp;-\t<a target='_blank' href=\"https://docs.microsoft.com/exchange/clients-and-mobile-in-exchange-online/pop3-and-imap4/enable-or-disable-pop3-or-imap4-access\">ユーザーの POP3 または IMAP4 アクセスを有効または無効にする</a>。</dd>\n<dd>◇  OneDrive 同期を一時停止すると、感染した可能性のあるデバイスによってクラウド上のデータが更新されるのを防げます。詳しくは <a target='_blank' href=\"https://support.microsoft.com/office/how-to-pause-and-resume-sync-in-onedrive-2152bfa4-a2a5-4d3a-ace8-92912fb4421e\">OneDrive で同期を一時停止および再開する方法</a>を参照してください。</dd>\n<dt><b>◆  影響を受けたシステムに、該当する修正プログラムと構成変更を適用します。</b></dt>\n<dt><b>◆  内部と外部の制御を使って、ランサムウェアの通信をブロックします。</b></dt>\n<dt><b>◆  キャッシュされたコンテンツを消去します。</b></dt>"
                     }
                   },
                   "runAfter": {
@@ -208,7 +208,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S1_-_Verify_your_backups')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 1: Verify your backups"
+                          "taskTitle": "根絶と復旧 - ステップ 1: バックアップを確認する"
                         },
                         "host": {
                           "connection": {
@@ -230,7 +230,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S2_-_Add_indicators')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 2: Add indicators"
+                          "taskTitle": "根絶と復旧 - ステップ 2: インジケーターを追加する"
                         },
                         "host": {
                           "connection": {
@@ -252,7 +252,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S3_-_Reset_compromised_users')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 3: Reset compromised users"
+                          "taskTitle": "根絶と復旧 - ステップ 3: 侵害されたユーザーをリセットする"
                         },
                         "host": {
                           "connection": {
@@ -274,7 +274,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S4_-_Isolate_attacker_control_points')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 4: Isolate attacker control points"
+                          "taskTitle": "根絶と復旧 - ステップ 4: 攻撃者の制御ポイントを隔離する"
                         },
                         "host": {
                           "connection": {
@@ -296,7 +296,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S5_-_Remove_the_malware')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 5: Remove the malware"
+                          "taskTitle": "根絶と復旧 - ステップ 5: マルウェアを駆除する"
                         },
                         "host": {
                           "connection": {
@@ -318,7 +318,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S6_-_Recover_files_on_a_cleaned_device')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 6: Recover files on a cleaned device"
+                          "taskTitle": "根絶と復旧 - ステップ 6: クリーンアップ済みデバイスのファイルを復旧する"
                         },
                         "host": {
                           "connection": {
@@ -340,7 +340,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S7_-_Recover_files_in_OneDrive_for_Business')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 7: Recover files in OneDrive for Business"
+                          "taskTitle": "根絶と復旧 - ステップ 7: OneDrive for Business のファイルを復旧する"
                         },
                         "host": {
                           "connection": {
@@ -362,7 +362,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S8_-_Recover_deleted_email')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 8: Recover deleted email"
+                          "taskTitle": "根絶と復旧 - ステップ 8: 削除されたメールを復旧する"
                         },
                         "host": {
                           "connection": {
@@ -384,7 +384,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Eradication_and_recovery_-_S9_-_Re-enable_Exchange_ActiveSync')}</p>",
-                          "taskTitle": "Eradication and recovery - Step 9: Re-enable Exchange ActiveSync and OneDrive Sync"
+                          "taskTitle": "根絶と復旧 - ステップ 9: Exchange ActiveSync と OneDrive 同期を再度有効にする"
                         },
                         "host": {
                           "connection": {
@@ -398,7 +398,7 @@
                     "Compose_-_Eradication_and_recovery_-_S1_-_Verify_your_backups": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt>If you have offline backups, you can probably restore the data that has been encrypted after you have removed the ransomware payload (malware) from your environment and after you have verified that there's no unauthorized access in your Microsoft 365 tenant.</dt>\n<dt>Continue to Eradication and recovery - Step 2: Add indicators</dt>"
+                      "inputs": "<dt>オフライン バックアップがある場合は、環境からランサムウェアのペイロード（マルウェア）を取り除き、Microsoft 365 テナントに不正アクセスがないことを確認したうえで、暗号化されたデータを復元できる可能性が高くなります。</dt>\n<dt>続けて「根絶と復旧 - ステップ 2: インジケーターを追加する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S2_-_Add_indicators": {
                       "runAfter": {
@@ -407,7 +407,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>Add any known attacker communication channels as <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/manage-indicators?view=o365-worldwide\">indicators</a>, blocked in firewalls, in your proxy servers, and on endpoints, and <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/add-entity-to-threat-intelligence?tabs=incidents'>add entities to threat intelligence in Microsoft Sentinel</a>.</dt>\n<dt>Continue to Eradication and recovery - Step 3: Reset compromised users</dt>"
+                      "inputs": "<dt>判明している攻撃者の通信チャネルを<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/manage-indicators?view=o365-worldwide\">インジケーター</a>として追加し、ファイアウォール、プロキシ サーバー、エンドポイントでブロックします。あわせて <a target='_blank' href='https://learn.microsoft.com/azure/sentinel/add-entity-to-threat-intelligence?tabs=incidents'>Microsoft Sentinel で脅威インテリジェンスにエンティティを追加</a>します。</dt>\n<dt>続けて「根絶と復旧 - ステップ 3: 侵害されたユーザーをリセットする」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S3_-_Reset_compromised_users": {
                       "runAfter": {
@@ -416,7 +416,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>Reset the passwords of any known compromised user accounts and require a new sign-in.</b></dt>\n<dt>◆  Consider resetting the passwords for any privileged account with broad administrative authority, such as the members of the Domain Admins group.</dt>\n<dt>◆  If a user account might have been created by an attacker, disable the account. Do not delete the account unless there are no plans to perform security forensics for the incident.<br></dt>\n<dt><a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Respond to threat actors while investigating or threat hunting in Microsoft Sentinel</a></dt>\n<dt>Continue to Eradication and recovery - Step 4: Isolate attacker control points</dt>"
+                      "inputs": "<dt><b>侵害が判明しているユーザー アカウントのパスワードをリセットし、再度のサインインを必須にします。</b></dt>\n<dt>◆  Domain Admins グループのメンバーなど、広範な管理権限を持つ特権アカウントについても、パスワードのリセットを検討します。</dt>\n<dt>◆  攻撃者によって作成された可能性のあるユーザー アカウントは無効にします。インシデントのセキュリティ フォレンジックを実施しないことが確定している場合を除き、アカウントを削除しないでください。<br></dt>\n<dt><a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Microsoft Sentinel での調査や脅威ハンティング中に攻撃者へ対応する</a></dt>\n<dt>続けて「根絶と復旧 - ステップ 4: 攻撃者の制御ポイントを隔離する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S4_-_Isolate_attacker_control_points": {
                       "runAfter": {
@@ -425,7 +425,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>Isolate any known attacker control points inside the enterprise from the Internet.</b></dt>\n<dt><a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Respond to threat actors while investigating or threat hunting in Microsoft Sentinel</a></dt>\n<dt>Continue to Eradication and recovery - Step 5: Remove the malware</dt>"
+                      "inputs": "<dt><b>社内で判明している攻撃者の制御ポイントを、インターネットから隔離します。</b></dt>\n<dt><a target='_blank' href='https://learn.microsoft.com/azure/sentinel/respond-threats-during-investigation'>Microsoft Sentinel での調査や脅威ハンティング中に攻撃者へ対応する</a></dt>\n<dt>続けて「根絶と復旧 - ステップ 5: マルウェアを駆除する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S5_-_Remove_the_malware": {
                       "runAfter": {
@@ -434,7 +434,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>Remove the malware from the affected devices.</b></dt>\n<dt>◆  Run a full, <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts?view=o365-worldwide#run-microsoft-defender-antivirus-scan-on-devices\">current antivirus scan</a> on all suspected computers and devices to detect and remove the payload that is associated with the ransomware.</dt>\n<dt>◆  Do not forget to scan devices that synchronize data or the targets of mapped network drives.</dt>\n<dt>Continue to Eradication and recovery - Step 6: Recover files on a cleaned device</dt>"
+                      "inputs": "<dt><b>影響を受けたデバイスからマルウェアを駆除します。</b></dt>\n<dt>◆  侵害が疑われるすべてのコンピューターとデバイスで、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/respond-machine-alerts?view=o365-worldwide#run-microsoft-defender-antivirus-scan-on-devices\">最新定義によるウイルス対策のフル スキャン</a>を実行し、ランサムウェアに関連するペイロードを検出して駆除します。</dt>\n<dt>◆  データを同期しているデバイスや、マップされたネットワーク ドライブの接続先もスキャンすることを忘れないでください。</dt>\n<dt>続けて「根絶と復旧 - ステップ 6: クリーンアップ済みデバイスのファイルを復旧する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S6_-_Recover_files_on_a_cleaned_device": {
                       "runAfter": {
@@ -443,7 +443,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>Recover files on a cleaned device.</b></dt>\n<dt>◆  You can use <a target='_blank' href=\"https://support.microsoft.com/help/17128\">File History</a> in Windows 11, Windows 10, Windows 8.1, and System Protection in Windows 7 to attempt to recover your local files and folders.</dt>\n<dt>Continue to Eradication and recovery - Step 7: Recover files in OneDrive for Business</dt>"
+                      "inputs": "<dt><b>クリーンアップ済みデバイスのファイルを復旧します。</b></dt>\n<dt>◆  Windows 11、Windows 10、Windows 8.1 では<a target='_blank' href=\"https://support.microsoft.com/help/17128\">ファイル履歴</a>、Windows 7 ではシステムの保護を使って、ローカルのファイルとフォルダーの復旧を試みることができます。</dt>\n<dt>続けて「根絶と復旧 - ステップ 7: OneDrive for Business のファイルを復旧する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S7_-_Recover_files_in_OneDrive_for_Business": {
                       "runAfter": {
@@ -452,7 +452,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>Recover files in OneDrive for Business.</b></dt>\n<dt>◆  Files Restore in OneDrive for Business allows you to restore an entire OneDrive to a previous point in time within the last 30 days. For more information, see <a target='_blank' href=\"https://support.microsoft.com/office/restore-your-onedrive-fa231298-759d-41cf-bcd0-25ac53eb8a15\">Restore your OneDrive</a>.</dt>\n<dt>Continue to Eradication and recovery - Step 8: Recover deleted email</dt>"
+                      "inputs": "<dt><b>OneDrive for Business のファイルを復旧します。</b></dt>\n<dt>◆  OneDrive for Business の「ファイルの復元」を使うと、過去 30 日以内の任意の時点へ OneDrive 全体を戻せます。詳しくは <a target='_blank' href=\"https://support.microsoft.com/office/restore-your-onedrive-fa231298-759d-41cf-bcd0-25ac53eb8a15\">OneDrive を復元する</a>を参照してください。</dt>\n<dt>続けて「根絶と復旧 - ステップ 8: 削除されたメールを復旧する」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S8_-_Recover_deleted_email": {
                       "runAfter": {
@@ -461,7 +461,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>In the rare case that the ransomware deleted all your email, you can probably recover the deleted items. See <a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/recover-deleted-messages\">Recover deleted messages in a user's mailbox in Exchange Online</a>.</dt>\n<dt>Continue to Eradication and recovery - Step 9: Re-enable Exchange ActiveSync and OneDrive Sync</dt>"
+                      "inputs": "<dt>まれにランサムウェアがメールをすべて削除することがありますが、その場合も削除済みアイテムを復旧できる可能性があります。<a target='_blank' href=\"https://docs.microsoft.com/exchange/recipients-in-exchange-online/manage-user-mailboxes/recover-deleted-messages\">Exchange Online でユーザーのメールボックス内の削除済みメッセージを復元する</a>を参照してください。</dt>\n<dt>続けて「根絶と復旧 - ステップ 9: Exchange ActiveSync と OneDrive 同期を再度有効にする」に進みます。</dt>"
                     },
                     "Compose_-_Eradication_and_recovery_-_S9_-_Re-enable_Exchange_ActiveSync": {
                       "runAfter": {
@@ -470,7 +470,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>After you have cleaned your computers and devices and recovered the data, you can re-enable Exchange ActiveSync and OneDrive sync that you previously disabled in step 3 of containment.</dt>"
+                      "inputs": "<dt>コンピューターとデバイスのクリーンアップとデータの復旧が完了したら、封じ込めのステップ 3 で無効にした Exchange ActiveSync と OneDrive 同期を、再度有効にできます。</dt>"
                     }
                   },
                   "runAfter": {
@@ -493,7 +493,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_HumOR')}</p>",
-                          "taskTitle": "More data about Human-operated ransomware"
+                          "taskTitle": "人間が操作するランサムウェアに関する詳細情報"
                         },
                         "host": {
                           "connection": {
@@ -507,7 +507,7 @@
                     "Compose_-_HumOR": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt>You can get detailed information regards ransomware in <a target='_blank' href=\"https://docs.microsoft.com/security/compass/human-operated-ransomware\">Human-operated ransomware</a>, as Microsoft best practices.</dt>"
+                      "inputs": "<dt>ランサムウェアに関する詳しい情報は、Microsoft のベスト プラクティスである<a target='_blank' href=\"https://docs.microsoft.com/security/compass/human-operated-ransomware\">人間が操作するランサムウェア</a>で確認できます。</dt>"
                     },
                     "Mark_a_task_as_completed_-_HumOR": {
                       "runAfter": {
@@ -550,7 +550,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Introduction')}</p>",
-                          "taskTitle": "Introduction"
+                          "taskTitle": "はじめに"
                         },
                         "host": {
                           "connection": {
@@ -564,7 +564,7 @@
                     "Compose_-_Introduction": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt>When you suspect you were or are currently under a ransomware attack, establish secure communications with your incident response team immediately. They can perform the following response phases to disrupt the attack and mitigate the damage:</dt>\n<dt>NOTE: For information about preventing ransomware attacks, see <a target='_blank' href=\"https://docs.microsoft.com/security/compass/protect-against-ransomware\">Rapidly protect against ransomware and extortion</a>.</dt>\n<dt>Click on \"Containment - Step 1: Assess the scope of the incident\" task when you're ready to start.</dt>"
+                      "inputs": "<dt>ランサムウェア攻撃を受けている、または受けた可能性があると考えられる場合は、直ちにインシデント対応チームと安全な連絡手段を確立してください。対応チームは次のフェーズを実施して、攻撃を中断させ、被害を軽減します。</dt>\n<dt>注: ランサムウェア攻撃の予防については、<a target='_blank' href=\"https://docs.microsoft.com/security/compass/protect-against-ransomware\">ランサムウェアと恐喝から迅速に保護する</a>を参照してください。</dt>\n<dt>準備ができたら、「封じ込め - ステップ 1: インシデントの影響範囲を評価する」タスクを開いてください。</dt>"
                     },
                     "Mark_a_task_as_completed_-_Introduction": {
                       "runAfter": {
@@ -603,7 +603,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Investigate_-_Identify_the_line_of_business_(LOB)_apps')}</p>",
-                          "taskTitle": "Investigate - Identify the line of business (LOB) apps that are unavailable due to the incident"
+                          "taskTitle": "調査 - インシデントにより利用できなくなった基幹業務 (LOB) アプリを特定する"
                         },
                         "host": {
                           "connection": {
@@ -625,7 +625,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Assess_the_current_situation')}</p>",
-                          "taskTitle": "Investigation - Assess the current situation"
+                          "taskTitle": "調査 - 現在の状況を評価する"
                         },
                         "host": {
                           "connection": {
@@ -647,7 +647,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Identify_the_ransomware_process')}</p>",
-                          "taskTitle": "Investigation - Identify the ransomware process"
+                          "taskTitle": "調査 - ランサムウェアのプロセスを特定する"
                         },
                         "host": {
                           "connection": {
@@ -669,7 +669,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Investigation_-_Look_for_exposed_credentials_in_the_infected_machines')}</p>",
-                          "taskTitle": "Investigation - Look for exposed credentials in the infected machines"
+                          "taskTitle": "調査 - 感染したデバイスで露出した資格情報を探す"
                         },
                         "host": {
                           "connection": {
@@ -687,12 +687,12 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>◆  Does the app require an identity?</b></dt>\n<dd>o\tHow is authentication performed?</dd>\n<dd>o\tHow are credentials such as certificates or secrets stored and managed?</dd>\n<dt><b>◆  Are evaluated backups of the application, its configuration, and its data available?</b></dt>\n<dt><b>◆  Determine your compromise recovery process.</b></dt>"
+                      "inputs": "<dt><b>◆  そのアプリは ID を必要としますか？</b></dt>\n<dd>◇  認証はどのように行われていますか？</dd>\n<dd>◇  証明書やシークレットなどの資格情報は、どのように保管・管理されていますか？</dd>\n<dt><b>◆  アプリケーション本体、その構成、データについて、検証済みのバックアップはありますか？</b></dt>\n<dt><b>◆  侵害からの復旧プロセスを決めます。</b></dt>"
                     },
                     "Compose_-_Investigation_-_Assess_the_current_situation": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt><b>◆  What initially made you aware of the ransomware attack?</b></dt>\n<dd>o\tIf IT staff identified the initial threat◇ such as noticing backups being deleted, antivirus alerts, endpoint detection and response (EDR) alerts, or suspicious system changes◇ it is often possible to take quick decisive measures to thwart the attack, typically by the containment actions described in this article.</dd>\n<dt><b>◆  What date and time did you first learn of the incident?</b></dt>\n<dd>o\tWhat system and security updates were not installed on devices on that date? This is important to understand what vulnerabilities might have been leveraged so they can be addressed on other devices.</dd>\n<dd>o\tWhat user accounts were used on that date?</dd>\n<dd>o\tWhat new user accounts were created since that date?</dd>\n<dd>o\tWhat programs were added to automatically start around the time that the incident occurred?</dd>\n<dt><b>◆  Is there any indication that the attacker is currently accessing systems?</b></dt>\n<dd>o\tAre there any suspected compromised systems that are experiencing unusual activity?</dd>\n<dd>o\tAre there any suspected compromised accounts that appear to be actively used by the adversary?</dd>\n<dd>o\tIs there any evidence of active command-and-control (C2) servers in EDR, firewall, VPN, web proxy, and other logs?</dd>"
+                      "inputs": "<dt><b>◆  ランサムウェア攻撃に最初に気付いたきっかけは何ですか？</b></dt>\n<dd>◇  バックアップの削除、ウイルス対策のアラート、エンドポイントでの検出と対応 (EDR) のアラート、システムの不審な変更などによって IT 担当者が最初の脅威を特定できた場合は、本手順で説明する封じ込めの対応によって、迅速かつ決定的な措置を取れることが多くあります。</dd>\n<dt><b>◆  インシデントを最初に把握した日時はいつですか？</b></dt>\n<dd>◇  その時点で、デバイスに適用されていなかったシステム更新プログラムやセキュリティ更新プログラムは何ですか？悪用された可能性のある脆弱性を把握し、他のデバイスで対処するために重要です。</dd>\n<dd>◇  その時点で使用されていたユーザー アカウントは何ですか？</dd>\n<dd>◇  その時点以降に新しく作成されたユーザー アカウントはありますか？</dd>\n<dd>◇  インシデント発生の前後に、自動起動へ追加されたプログラムはありますか？</dd>\n<dt><b>◆  攻撃者が現在もシステムにアクセスしている兆候はありますか？</b></dt>\n<dd>◇  通常とは異なる動作をしている、侵害が疑われるシステムはありますか？</dd>\n<dd>◇  攻撃者に実際に使われていると見られる、侵害が疑われるアカウントはありますか？</dd>\n<dd>◇  EDR、ファイアウォール、VPN、Web プロキシなどのログに、アクティブなコマンド アンド コントロール (C2) サーバーの痕跡はありますか？</dd>"
                     },
                     "Compose_-_Investigation_-_Identify_the_ransomware_process": {
                       "runAfter": {
@@ -701,7 +701,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>Using advanced hunting, search for this process in the process creation events on other devices.  <a target='_blank' href=\"https://sip.security.microsoft.com/hunting?query=H4sIAAAAAAAEAJVSTUvDUBCcs-B_eIQeFPw8iHgQLKJQKOLBm1qIaZJGkyY0aSpW_7uz85Iq2Is8aOftm53dnc0QOWIs0GCEORKU2MUOPuGwwkwvMfEDMjJy4UsehwC3jPnIlKwSFU9M7BBSyf5zoiVxJCWLJGIWRKZbEDdSyIkishtqlswINl288p4x4jDcdHqDlrEpb6Zt-aUYAzESMo5-sUeq7LseMJIhZT9_OVbxmMdhTL0Sb6qbquuSLEeexXPUxPbW6tZ2s_kuq26muWYJ-W7-ZMxpVPuFjvRTWt-JvDDHajmzIjZvtm2hd_yOnEKRGVHNmgvNneFdm6kYi4ljYtf1vrclu5Djfjt1t5NUmQ5XzJ0w65GcQ3zghL8XeMY-1jjHF57on68xUJV-5_-rElC_V17jFAc4o3bAKja_7_xe30yk7BrXcqno6o3l-o8TphiSa-xKe1jqKwzwDd6nLz7oAgAA&runQuery=true&timeRangeId=month\">Run query in Advanced hunting</a>.</dt>\n<dt>You can use also <a target='_blank' href=\"https://learn.microsoft.com/azure/azure-monitor/reference/tables/deviceprocessevents\">DeviceProcessEvents table in Microsoft Sentinel Logs</a> or in <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-deviceprocessevents-table?view=o365-worldwide\">Microsoft 365 Defender advanced hunting</a>.</dt>"
+                      "inputs": "<dt>Advanced Hunting を使って、他のデバイスのプロセス作成イベントからこのプロセスを検索します。  <a target='_blank' href=\"https://sip.security.microsoft.com/hunting?query=H4sIAAAAAAAEAJVSTUvDUBCcs-B_eIQeFPw8iHgQLKJQKOLBm1qIaZJGkyY0aSpW_7uz85Iq2Is8aOftm53dnc0QOWIs0GCEORKU2MUOPuGwwkwvMfEDMjJy4UsehwC3jPnIlKwSFU9M7BBSyf5zoiVxJCWLJGIWRKZbEDdSyIkishtqlswINl288p4x4jDcdHqDlrEpb6Zt-aUYAzESMo5-sUeq7LseMJIhZT9_OVbxmMdhTL0Sb6qbquuSLEeexXPUxPbW6tZ2s_kuq26muWYJ-W7-ZMxpVPuFjvRTWt-JvDDHajmzIjZvtm2hd_yOnEKRGVHNmgvNneFdm6kYi4ljYtf1vrclu5Djfjt1t5NUmQ5XzJ0w65GcQ3zghL8XeMY-1jjHF57on68xUJV-5_-rElC_V17jFAc4o3bAKja_7_xe30yk7BrXcqno6o3l-o8TphiSa-xKe1jqKwzwDd6nLz7oAgAA&runQuery=true&timeRangeId=month\">Advanced hunting でクエリを実行する</a>。</dt>\n<dt><a target='_blank' href=\"https://learn.microsoft.com/azure/azure-monitor/reference/tables/deviceprocessevents\">Microsoft Sentinel Logs の DeviceProcessEvents テーブル</a>や <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender/advanced-hunting-deviceprocessevents-table?view=o365-worldwide\">Microsoft 365 Defender の Advanced Hunting</a> も利用できます。</dt>"
                     },
                     "Compose_-_Investigation_-_Look_for_exposed_credentials_in_the_infected_machines": {
                       "runAfter": {
@@ -710,7 +710,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt><b>◆  For user accounts whose credentials were potentially compromised, reset the account passwords, and require the users to sign in again.</b></dt>\n<dt><b>◆  The following IOAs might indicate lateral movement:</b></dt>\n<dd>o\tSuspiciousExploratoryCommands</dd>\n<dd>o\tMLFileBasedAlert</dd>\n<dd>o\tIfeoDebuggerPersistence</dd>\n<dd>o\tSuspiciousRemoteFileDropAndExecution</dd>\n<dd>o\tExploratoryWindowsCommands</dd>\n<dd>o\tIoaStickyKeys</dd>\n<dd>o\tMimikatz Defender Amplifier</dd>\n<dd>o\tNetwork scanning tool used by PARINACOTA</dd>\n<dd>o\tDefenderServerAlertMSSQLServer</dd>\n<dd>o\tSuspiciousLowReputationFileDrop</dd>\n<dd>o\tSuspiciousServiceExecution</dd>\n<dd>o\tAdminUserAddition</dd>\n<dd>o\tMimikatzArtifactsDetector</dd>\n<dd>o\tScuba-WdigestEnabledToAccessCredentials</dd>\n<dd>o\tDefenderMalware</dd>\n<dd>o\tMLSuspCmdBehavior</dd>\n<dd>o\tMLSuspiciousRemoteInvocation</dd>\n<dd>o\tSuspiciousRemoteComponentInvocation</dd>\n<dd>o\tSuspiciousWmiProcessCreation</dd>\n<dd>o\tMLCmdBasedWithRemoting</dd>\n<dd>o\tProcess Accesses Lsass</dd>\n<dd>o\tSuspicious Rundll32 Process Execution</dd>\n<dd>o\tBitsAdmin</dd>\n<dd>o\tDefenderCobaltStrikeDetection</dd>\n<dd>o\tDefenderHacktool</dd>\n<dd>o\tIoaSuspPSCommandline</dd>\n<dd>o\tMetasploit</dd>\n<dd>o\tMLSuspToolBehavior</dd>\n<dd>o\tRegistryQueryForPasswords</dd>\n<dd>o\tSuspiciousWdavExclusion</dd>\n<dd>o\tASEPRegKey</dd>\n<dd>o\tCobaltStrikeExecutionDetection</dd>\n<dd>o\tDefenderBackdoor</dd>\n<dd>o\tDefenderBehaviorSuspiciousActivity</dd>\n<dd>o\tDefenderMalwareExecuted</dd>\n<dd>o\tDefenderServerAlertDomainController</dd>\n<dd>o\tDupTokenPrivilegeEscalationDetector</dd>\n<dd>o\tFakeWindowsBinary</dd>\n<dd>o\tIoaMaliciousCmdlets</dd>\n<dd>o\tLivingOffTheLandBinary</dd>\n<dd>o\tMicrosoftSignedBinaryAbuse</dd>\n<dd>o\tMicrosoftSignedBinaryScriptletAbuse</dd>\n<dd>o\tMLFileBasedWithRemoting</dd>\n<dd>o\tMLSuspSvchostBehavior</dd>\n<dd>o\tReadSensitiveMemory</dd>\n<dd>o\tRemoteCodeInjection-IREnabled</dd>\n<dd>o\tScuba-EchoSeenOverPipeOnLocalhost</dd>\n<dd>o\tScuba-SuspiciousWebScriptFileDrop</dd>\n<dd>o\tSuspicious DLL registration by odbcconf</dd>\n<dd>o\tSuspicious DPAPI Activity</dd>\n<dd>o\tSuspicious Exchange Process Execution</dd>\n<dd>o\tSuspicious scheduled task launch</dd>\n<dd>o\tSuspiciousLdapQueryDetector</dd>\n<dd>o\tSuspiciousScheduledTaskRegistration</dd>\n<dd>o\tUntrusted application opens a RDP connection</dd>"
+                      "inputs": "<dt><b>◆  資格情報が侵害された可能性のあるユーザー アカウントについては、パスワードをリセットし、再度サインインさせます。</b></dt>\n<dt><b>◆  次の IOA はラテラル ムーブメントを示している可能性があります。</b></dt>\n<dd>◇  SuspiciousExploratoryCommands</dd>\n<dd>◇  MLFileBasedAlert</dd>\n<dd>◇  IfeoDebuggerPersistence</dd>\n<dd>◇  SuspiciousRemoteFileDropAndExecution</dd>\n<dd>◇  ExploratoryWindowsCommands</dd>\n<dd>◇  IoaStickyKeys</dd>\n<dd>◇  Mimikatz Defender Amplifier</dd>\n<dd>◇  Network scanning tool used by PARINACOTA</dd>\n<dd>◇  DefenderServerAlertMSSQLServer</dd>\n<dd>◇  SuspiciousLowReputationFileDrop</dd>\n<dd>◇  SuspiciousServiceExecution</dd>\n<dd>◇  AdminUserAddition</dd>\n<dd>◇  MimikatzArtifactsDetector</dd>\n<dd>◇  Scuba-WdigestEnabledToAccessCredentials</dd>\n<dd>◇  DefenderMalware</dd>\n<dd>◇  MLSuspCmdBehavior</dd>\n<dd>◇  MLSuspiciousRemoteInvocation</dd>\n<dd>◇  SuspiciousRemoteComponentInvocation</dd>\n<dd>◇  SuspiciousWmiProcessCreation</dd>\n<dd>◇  MLCmdBasedWithRemoting</dd>\n<dd>◇  Process Accesses Lsass</dd>\n<dd>◇  Suspicious Rundll32 Process Execution</dd>\n<dd>◇  BitsAdmin</dd>\n<dd>◇  DefenderCobaltStrikeDetection</dd>\n<dd>◇  DefenderHacktool</dd>\n<dd>◇  IoaSuspPSCommandline</dd>\n<dd>◇  Metasploit</dd>\n<dd>◇  MLSuspToolBehavior</dd>\n<dd>◇  RegistryQueryForPasswords</dd>\n<dd>◇  SuspiciousWdavExclusion</dd>\n<dd>◇  ASEPRegKey</dd>\n<dd>◇  CobaltStrikeExecutionDetection</dd>\n<dd>◇  DefenderBackdoor</dd>\n<dd>◇  DefenderBehaviorSuspiciousActivity</dd>\n<dd>◇  DefenderMalwareExecuted</dd>\n<dd>◇  DefenderServerAlertDomainController</dd>\n<dd>◇  DupTokenPrivilegeEscalationDetector</dd>\n<dd>◇  FakeWindowsBinary</dd>\n<dd>◇  IoaMaliciousCmdlets</dd>\n<dd>◇  LivingOffTheLandBinary</dd>\n<dd>◇  MicrosoftSignedBinaryAbuse</dd>\n<dd>◇  MicrosoftSignedBinaryScriptletAbuse</dd>\n<dd>◇  MLFileBasedWithRemoting</dd>\n<dd>◇  MLSuspSvchostBehavior</dd>\n<dd>◇  ReadSensitiveMemory</dd>\n<dd>◇  RemoteCodeInjection-IREnabled</dd>\n<dd>◇  Scuba-EchoSeenOverPipeOnLocalhost</dd>\n<dd>◇  Scuba-SuspiciousWebScriptFileDrop</dd>\n<dd>◇  Suspicious DLL registration by odbcconf</dd>\n<dd>◇  Suspicious DPAPI Activity</dd>\n<dd>◇  Suspicious Exchange Process Execution</dd>\n<dd>◇  Suspicious scheduled task launch</dd>\n<dd>◇  SuspiciousLdapQueryDetector</dd>\n<dd>◇  SuspiciousScheduledTaskRegistration</dd>\n<dd>◇  Untrusted application opens a RDP connection</dd>"
                     }
                   },
                   "runAfter": {
@@ -733,7 +733,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Device_protection_-_Part_1')}</p>",
-                          "taskTitle": "Prevention - Device protection: Part 1"
+                          "taskTitle": "予防 - デバイス保護: パート 1"
                         },
                         "host": {
                           "connection": {
@@ -755,7 +755,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Device_protection_-_Part_2')}</p>",
-                          "taskTitle": "Prevention - Device protection: Part 2"
+                          "taskTitle": "予防 - デバイス保護: パート 2"
                         },
                         "host": {
                           "connection": {
@@ -777,7 +777,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Email_management')}</p>",
-                          "taskTitle": "Prevention - Email management"
+                          "taskTitle": "予防 - メール管理"
                         },
                         "host": {
                           "connection": {
@@ -799,7 +799,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Identity_protection')}</p>",
-                          "taskTitle": "Prevention - Identity protection"
+                          "taskTitle": "予防 - ID 保護"
                         },
                         "host": {
                           "connection": {
@@ -821,7 +821,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Information_protection')}</p>",
-                          "taskTitle": "Prevention - Information protection"
+                          "taskTitle": "予防 - 情報保護"
                         },
                         "host": {
                           "connection": {
@@ -843,7 +843,7 @@
                         "body": {
                           "incidentArmId": "@triggerBody()?['object']?['id']",
                           "taskDescription": "<p>@{outputs('Compose_-_Prevention_-_Vulnerability_management')}</p>",
-                          "taskTitle": "Prevention - Vulnerability management"
+                          "taskTitle": "予防 - 脆弱性管理"
                         },
                         "host": {
                           "connection": {
@@ -857,7 +857,7 @@
                     "Compose_-_Prevention_-_Device_protection_-_Part_1": {
                       "runAfter": {},
                       "type": "Compose",
-                      "inputs": "<dt>The full list of prevention actions can be found in the <a target='_blank' href=\"https://security.microsoft.com/threatanalytics3/05658b6c-dc62-496d-ad3c-c6a795a33c27/analystreport\">ransomware threat analytics report</a>, and in <a target='_blank' href=\"https://docs.microsoft.com/security/compass/protect-against-ransomware\">Rapidly protect against ransomware and extortion | Microsoft Docs</a></dt>\n<dt>◆  Turn on Microsoft Defender Antivirus. (Execution)</dt>\n<dt>◆  Turn on Microsoft Defender Firewall. (Lateral movement)</dt>\n<dt>◆  Use <a target='_blank' href=\"https://docs.microsoft.com/Microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-germany#use-advanced-protection-againsttarget='_blank' -ransomware\">advanced protection</a> against ransomware. (Impact)</dt>\n<dt>◆  Enable <a href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/network-protection?view=o365-worldwide\">Network Protection</a> in Microsoft Defender for Endpoint and Microsoft 365 Defender. (Initial access)</dt>\n<dt>◆  Keep <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-cloud-protection-microsoft-defender-antivirus\">cloud-delivered protection</a> in Microsoft Defender Antivirus turned on. (Defense evasion)</dt>\n<dt>◆  Keep Microsoft Defender Antivirus <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus\">real-time behavior monitoring</a> turned on. (Defense evasion)</dt>\n<dt>◆  Turn on <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus\">real-time protection</a>. (Defense evasion)</dt>\n<dt>◆  Turn on <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide\">tamper protection</a> in Microsoft Defender for Endpoint, to prevent malicious changes to security settings. (Defense evasion)</dt>\n<dt>◆  Update Microsoft Defender Antivirus definitions. (Lateral movement)</dt>\n"
+                      "inputs": "<dt>予防策の一覧は、<a target='_blank' href=\"https://security.microsoft.com/threatanalytics3/05658b6c-dc62-496d-ad3c-c6a795a33c27/analystreport\">ランサムウェアの脅威分析レポート</a>および <a target='_blank' href=\"https://docs.microsoft.com/security/compass/protect-against-ransomware\">ランサムウェアと恐喝から迅速に保護する | Microsoft Docs</a> で確認できます。</dt>\n<dt>◆  Microsoft Defender Antivirus を有効にします。(実行)</dt>\n<dt>◆  Microsoft Defender Firewall を有効にします。(横展開)</dt>\n<dt>◆  ランサムウェアに対する<a target='_blank' href=\"https://docs.microsoft.com/Microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-germany#use-advanced-protection-againsttarget='_blank' -ransomware\">高度な保護</a>を使用します。(影響)</dt>\n<dt>◆  Microsoft Defender for Endpoint と Microsoft 365 Defender で<a href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/network-protection?view=o365-worldwide\">ネットワーク保護</a>を有効にします。(初期アクセス)</dt>\n<dt>◆  Microsoft Defender Antivirus の<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-cloud-protection-microsoft-defender-antivirus\">クラウド提供の保護</a>を有効なままにします。(防御回避)</dt>\n<dt>◆  Microsoft Defender Antivirus の<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus\">リアルタイムの動作監視</a>を有効なままにします。(防御回避)</dt>\n<dt>◆  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-real-time-protection-microsoft-defender-antivirus\">リアルタイム保護</a>を有効にします。(防御回避)</dt>\n<dt>◆  セキュリティ設定への悪意のある変更を防ぐため、Microsoft Defender for Endpoint で<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection?view=o365-worldwide\">改ざん防止</a>を有効にします。(防御回避)</dt>\n<dt>◆  Microsoft Defender Antivirus の定義を更新します。(横展開)</dt>\n"
                     },
                     "Compose_-_Prevention_-_Device_protection_-_Part_2": {
                       "runAfter": {
@@ -866,7 +866,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>◆  Configure <a target='_blank' href=\"https://docs.microsoft.com/windows/security/threat-protection/microsoft-defender-smartscreen/microsoft-defender-smartscreen-available-settings\">site and download checking</a> in Microsoft Defender SmartScreen to block or warn. (Initial access)</dt>\n<dt>◆  Configure <a target='_blank' href=\"https://docs.microsoft.com/windows/security/threat-protection/microsoft-defender-smartscreen/microsoft-defender-smartscreen-available-settings\">app and file checking</a> in Microsoft Defender SmartScreen to block or warn. (Initial access)</dt>\n<dt>◆  Enable <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-advanced-scan-types-microsoft-defender-antivirus?view=o365-worldwide\">Microsoft Defender Antivirus scanning</a> of downloaded files and attachments. (Initial access)</dt>\n<dt>◆  Block Win32 API calls from Office macros. (Execution)</dt>\n<dt>◆  Migrate all legacy workbooks requiring Excel 4.0 macros to the updated VBA macro format. (Execution)</dt>\n<dt>◆  <a target='_blank' href=\"https://support.microsoft.com/topic/enable-or-disable-macros-in-office-files-12b036fd-d140-4e74-b45e-16fed1a7e5c6\">Disable use of unsigned macros<a/>. Ensure all internal macros with business need are signed and leveraging <a target='_blank' href=\"https://docs.microsoft.com/deployoffice/security/designate-trusted-locations-for-files-in-office\">trusted locations</a> to ensure unknown macros will not run in your environment. (Execution)</dt>\n<dt>◆  Stop malicious XLM or VBA macros by ensuring runtime macro scanning by Antimalware Scan Interface (<a target='_blank' href=\"https://www.microsoft.com/security/blog/2021/03/03/xlm-amsi-new-runtime-defense-against-excel-4-0-macro-malware/\">AMSI</a>) is on. This feature◆ enabled by default◆ is on if the Group Policy setting for Macro Run Time Scan Scope is set to Enable for All Files or Enable for Low Trust Files. Get the <a target='_blank' href=\"https://www.microsoft.com/download/details.aspx?id=49030\">latest group policy template files</a>. (Execution)</dt>\n<dt>◆  Set Remote Desktop security level to TLS in Microsoft Defender for Endpoint and Microsoft 365 Defender. (Initial access)</dt>"
+                      "inputs": "<dt>◆  Microsoft Defender SmartScreen の<a target='_blank' href=\"https://docs.microsoft.com/windows/security/threat-protection/microsoft-defender-smartscreen/microsoft-defender-smartscreen-available-settings\">サイトとダウンロードのチェック</a>を、ブロックまたは警告に構成します。(初期アクセス)</dt>\n<dt>◆  Microsoft Defender SmartScreen の<a target='_blank' href=\"https://docs.microsoft.com/windows/security/threat-protection/microsoft-defender-smartscreen/microsoft-defender-smartscreen-available-settings\">アプリとファイルのチェック</a>を、ブロックまたは警告に構成します。(初期アクセス)</dt>\n<dt>◆  ダウンロードしたファイルと添付ファイルに対する <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/configure-advanced-scan-types-microsoft-defender-antivirus?view=o365-worldwide\">Microsoft Defender Antivirus のスキャン</a>を有効にします。(初期アクセス)</dt>\n<dt>◆  Office マクロからの Win32 API 呼び出しをブロックします。(実行)</dt>\n<dt>◆  Excel 4.0 マクロを必要とする従来のブックは、すべて新しい VBA マクロ形式へ移行します。(実行)</dt>\n<dt>◆  <a target='_blank' href=\"https://support.microsoft.com/topic/enable-or-disable-macros-in-office-files-12b036fd-d140-4e74-b45e-16fed1a7e5c6\">署名されていないマクロの使用を無効にします</a>。業務上必要な社内マクロはすべて署名し、<a target='_blank' href=\"https://docs.microsoft.com/deployoffice/security/designate-trusted-locations-for-files-in-office\">信頼できる場所</a>を利用して、未知のマクロが環境内で実行されないようにします。(実行)</dt>\n<dt>◆  マルウェア対策スキャン インターフェイス (<a target='_blank' href=\"https://www.microsoft.com/security/blog/2021/03/03/xlm-amsi-new-runtime-defense-against-excel-4-0-macro-malware/\">AMSI</a>) による実行時のマクロ スキャンを有効にして、悪意のある XLM マクロや VBA マクロを阻止します。この機能は既定で有効で、グループ ポリシーの「マクロの実行時スキャンの範囲」が「すべてのファイルに対して有効」または「低信頼のファイルに対して有効」に設定されていれば動作します。<a target='_blank' href=\"https://www.microsoft.com/download/details.aspx?id=49030\">最新のグループ ポリシー テンプレート ファイル</a>を入手してください。(実行)</dt>\n<dt>◆  Microsoft Defender for Endpoint と Microsoft 365 Defender で、リモート デスクトップのセキュリティ レベルを TLS に設定します。(初期アクセス)</dt>"
                     },
                     "Compose_-_Prevention_-_Email_management": {
                       "runAfter": {
@@ -875,7 +875,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>◆  Enable Microsoft Defender Antivirus email scanning. (Initial access)</dt>\n<dt>◆  Use Microsoft Defender for Office 365 for <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/anti-phishing-protection\">enhanced phishing protection</a> and coverage against new threats and polymorphic variants. (Initial access)</dt>\n<dt>◆  Check your Office 365 email filtering settings to ensure you block spoofed emails, spam, and emails with malware. Use <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/office-365-atp\">Microsoft Defender for Office 365</a> for enhanced phishing protection and coverage against new threats and polymorphic variants. Configure Microsoft Defender for Office 365 to <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/atp-safe-links\">recheck links on click</a> and <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/zero-hour-auto-purge\">delete delivered mails</a> in response to newly acquired threat intelligence. (Initial access)</dt>\n<dt>◆  Review and update to the latest?<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365-atp\">recommended settings for EOP and Microsoft Defender for Office 365 security<a/>. (Initial access)</dt>\n<dt>◆  Configure Microsoft Defender for Office 365 to <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/set-up-safe-links-policies\">recheck links on click</a> and delete delivered mails in response to newly acquired threat intelligence. (Initial access)</dt>"
+                      "inputs": "<dt>◆  Microsoft Defender Antivirus のメール スキャンを有効にします。(初期アクセス)</dt>\n<dt>◆  新たな脅威やポリモーフィック型の亜種に対応するため、Microsoft Defender for Office 365 の<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/anti-phishing-protection\">高度なフィッシング対策</a>を使用します。(初期アクセス)</dt>\n<dt>◆  なりすましメール、スパム、マルウェア付きメールをブロックできるよう、Office 365 のメール フィルター設定を確認します。新たな脅威やポリモーフィック型の亜種への対応を強化するには、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/office-365-atp\">Microsoft Defender for Office 365</a> を使用します。新しく得られた脅威インテリジェンスに応じて、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/atp-safe-links\">クリック時にリンクを再チェック</a>し、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/zero-hour-auto-purge\">配信済みメールを削除</a>するように Microsoft Defender for Office 365 を構成します。(初期アクセス)</dt>\n<dt>◆  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/recommended-settings-for-eop-and-office365-atp\">EOP と Microsoft Defender for Office 365 のセキュリティに関する推奨設定</a>を確認し、最新の内容に更新します。(初期アクセス)</dt>\n<dt>◆  新しく得られた脅威インテリジェンスに応じて、<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/office-365-security/set-up-safe-links-policies\">クリック時にリンクを再チェック</a>し、配信済みメールを削除するように Microsoft Defender for Office 365 を構成します。(初期アクセス)</dt>"
                     },
                     "Compose_-_Prevention_-_Identity_protection": {
                       "runAfter": {
@@ -884,7 +884,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>◆  Increase password security by:</dt>\n<dd>o\tUsing <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/concept-password-ban-bad\">Azure AD Identity Protection</a> to prevent and detect attacks and extend blocking of known weak passwords to on-premises Active Directory</dd>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/concept-password-ban-bad-on-premises\">Extending Azure AD Password Protection</a> to on-premises active directory</dd>\n<dt>◆  Enforce strong multi-factor authentication (MFA) or passwordless logon for all users starting with administrators by using one or more of:</dt>\n<dd>o\tPasswordless authentication with <a target='_blank' href=\"https://docs.microsoft.com/windows/security/identity-protection/hello-for-business/hello-identity-verification\">Windows Hello</a> or <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/howto-authentication-phone-sign-in\">Microsoft Authenticator app</a></dd>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/howto-mfa-userstates\">Azure Multi-Factor Authentication</a></dd>\n<dd>o\tThird-party MFA solutions</dd>\n<dt>◆  Practice the principle of least-privilege and maintain credential hygiene. Avoid the use of domain-wide, admin-level service accounts. Restricting local administrative privileges can help limit installation of RATs and other unwanted applications. (Privilege escalation)</dt>\n<dt>◆  Enforce end-to-end session security. Explicitly validate the trust of users and workstations before allowing access to administrative interfaces using <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/conditional-access/overview\">Azure AD Conditional Access</a>.</dt>\n<dt>◆  Enable Local Admin password management (Privilege escalation)</dt>\n<dt>◆  Determine where highly privileged accounts are logging on and exposing credentials. Highly privileged accounts should not be present on workstations. (Privilege escalation)</dt>\n<dt>◆  Disable the local storage of passwords and credentials. (Privilege escalation)</dt>"
+                      "inputs": "<dt>◆  次の方法でパスワードのセキュリティを強化します。</dt>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/concept-password-ban-bad\">Azure AD Identity Protection</a> を使って攻撃を防止・検出し、既知の脆弱なパスワードのブロックをオンプレミスの Active Directory にも広げる</dd>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/concept-password-ban-bad-on-premises\">Azure AD パスワード保護を拡張</a>して、オンプレミスの Active Directory に適用する</dd>\n<dt>◆  管理者を起点に、すべてのユーザーへ強力な多要素認証 (MFA) またはパスワードレス サインインを適用します。次のいずれか、または複数を使用します。</dt>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/windows/security/identity-protection/hello-for-business/hello-identity-verification\">Windows Hello</a> または <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/howto-authentication-phone-sign-in\">Microsoft Authenticator アプリ</a>によるパスワードレス認証</dd>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/authentication/howto-mfa-userstates\">Azure Multi-Factor Authentication</a></dd>\n<dd>◇  サードパーティ製の MFA ソリューション</dd>\n<dt>◆  最小特権の原則を実践し、資格情報を健全に保ちます。ドメイン全体に及ぶ管理者権限のサービス アカウントの使用は避けてください。ローカルの管理者権限を制限すると、RAT などの不要なアプリケーションのインストールを抑制できます。(権限昇格)</dt>\n<dt>◆  エンド ツー エンドのセッション セキュリティを徹底します。<a target='_blank' href=\"https://docs.microsoft.com/azure/active-directory/conditional-access/overview\">Azure AD 条件付きアクセス</a>を使い、管理インターフェイスへのアクセスを許可する前に、ユーザーとワークステーションの信頼性を明示的に検証します。</dt>\n<dt>◆  ローカル管理者パスワードの管理を有効にします。(権限昇格)</dt>\n<dt>◆  高い特権を持つアカウントがどこでサインインし、資格情報を露出しているかを把握します。高い特権を持つアカウントを、ワークステーション上に存在させるべきではありません。(権限昇格)</dt>\n<dt>◆  パスワードと資格情報のローカル保存を無効にします。(権限昇格)</dt>"
                     },
                     "Compose_-_Prevention_-_Information_protection": {
                       "runAfter": {
@@ -893,7 +893,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>◆  Implement <a target='_blank' href=\"https://support.microsoft.com/topic/ransomware-protection-in-windows-security-445039d6-537a-488a-ad53-48906f346363\">controlled folder access</a> to help prevent files from being altered or encrypted by ransomware. (Impact)</dt>\n<dd>o\t<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-controlled-folders?view=o365-worldwide\">Set controlled folder access to Enabled or Audit mode</a>.</dd>\n<dt>◆  Back up important files regularly. Use the 3-2-1 rule. Keep three backups of your data, on two different storage types, and at least one backup offsite. (Impact)</dt>\n<dt>◆  Use <a target='_blank' href=\"https://www.microsoft.com/microsoft-365/onedrive/onedrive-for-business\">OneDrive cloud storage</a> to protect and back up your files. (Impact)</dt>"
+                      "inputs": "<dt>◆  ランサムウェアによるファイルの改ざんや暗号化を防ぐため、<a target='_blank' href=\"https://support.microsoft.com/topic/ransomware-protection-in-windows-security-445039d6-537a-488a-ad53-48906f346363\">コントロールされたフォルダー アクセス</a>を導入します。(影響)</dt>\n<dd>◇  <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/security/defender-endpoint/enable-controlled-folders?view=o365-worldwide\">コントロールされたフォルダー アクセスを「有効」または「監査」モードに設定</a>します。</dd>\n<dt>◆  重要なファイルは定期的にバックアップします。3-2-1 ルール（データのバックアップを 3 つ、異なる 2 種類のストレージに保持し、少なくとも 1 つはオフサイトに保管）に従ってください。(影響)</dt>\n<dt>◆  <a target='_blank' href=\"https://www.microsoft.com/microsoft-365/onedrive/onedrive-for-business\">OneDrive のクラウド ストレージ</a>を使って、ファイルを保護・バックアップします。(影響)</dt>"
                     },
                     "Compose_-_Prevention_-_Vulnerability_management": {
                       "runAfter": {
@@ -902,7 +902,7 @@
                         ]
                       },
                       "type": "Compose",
-                      "inputs": "<dt>◆  Enable <a target='_blank' href=\"https://docs.microsoft.com/deployoffice/configure-update-settings-microsoft-365-apps\">Automatic Updates</a>. (Defense evasion)</dt>\n<dt>◆  Ensure internet-facing assets have the latest security updates. <a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance\">Audit</a> these assets regularly for suspicious activity. (Initial access)</dt>"
+                      "inputs": "<dt>◆  <a target='_blank' href=\"https://docs.microsoft.com/deployoffice/configure-update-settings-microsoft-365-apps\">自動更新</a>を有効にします。(防御回避)</dt>\n<dt>◆  インターネットに公開されている資産に、最新のセキュリティ更新プログラムが適用されていることを確認します。これらの資産は定期的に<a target='_blank' href=\"https://docs.microsoft.com/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance\">監査</a>し、不審なアクティビティがないか確認します。(初期アクセス)</dt>"
                     }
                   },
                   "runAfter": {

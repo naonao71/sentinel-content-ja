@@ -1,6 +1,6 @@
-# Sentinel SOAR Essentials（統合ポータル対応版）
+# Sentinel SOAR Essentials（日本語版）
 
-Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials) に含まれる**タスク化 Playbook 3 本**を、統合ポータル（Microsoft Defender ポータル）で動くように修正したものです。
+Content Hub の [Sentinel SOAR Essentials](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials) に含まれる**タスク化 Playbook 3 本**を、統合ポータル（Microsoft Defender ポータル）で動くように修正し、**3 本とも日本語化**したものです。
 
 | 項目 | 値 |
 | --- | --- |
@@ -64,13 +64,36 @@ Logic Apps の `?[...]` は存在しないキーを `null` として扱うため
 
 BEC だけタスクが `Foreach` の内側にあるため、式を変えるだけでは動きません。`Foreach` が 1 度も回らないからです。
 
+## 日本語化
+
+**3 本ともタスク名と本文をすべて日本語にしました。** Phishing はポータル上の日本語表示を確認済みです。Ransomware と BEC は JSON 構造・HTML・保護用語の機械検査まで完了しており、ポータルへの再デプロイ後に表示を確認します。
+
+| Playbook | タスク名 | 本文 |
+| --- | --- | --- |
+| Phishing | 6 件 | 6 件 |
+| Ransomware | 25 件 | 25 件 |
+| BEC | 8 件 | 8 件 |
+
+タスク名は 3 本で用語をそろえています。
+
+| 本家 | 日本語版 |
+| --- | --- |
+| Introduction | はじめに |
+| Contain / Containment | 封じ込め |
+| Investigate / Investigation | 調査 |
+| Eradication and recovery | 根絶と復旧 |
+| Remediate / Remediation | 修復 |
+| Prevent / Prevention | 予防 |
+
+製品名（Microsoft Sentinel、Microsoft Defender XDR、Microsoft Defender for Endpoint など）、KQL、Advanced Hunting のテーブル名、検出名（IOA 名）、URL は原文のまま残しています。MITRE の戦術ラベルは日本語化しました。あわせて、本文に含まれていた壊れた HTML タグ（`<a/>`、閉じ忘れの `<dt>`）も修正しました。
+
 ## 収録 Playbook
 
 | Playbook | タスク数 | 日本語化 | 文字化け修正 | 検証 |
 | --- | --- | --- | --- | --- |
 | [Phishing](Playbooks/Defender_XDR_Phishing_Playbook_for_SecOps-Tasks/) | 6 | ✅ | ✅ 48 箇所 | ✅ 6 件作成を確認 |
-| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | — | ✅ 70 箇所 | ✅ 25 件作成を確認 |
-| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | — | ✅ 27 箇所 | ✅ 8 件作成を確認 |
+| [Ransomware](Playbooks/Defender_XDR_Ransomware_Playbook_for_SecOps-Tasks/) | 25 | ✅ | ✅ 70 箇所 | ⚠️ タスク作成25件は確認済み。日本語表示は再検証待ち |
+| [BEC](Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks/) | 8 | ✅ | ✅ 27 箇所 | ⚠️ タスク作成8件は確認済み。日本語表示は再検証待ち |
 
 3 本とも**実機でタスクが作られるところまで確認**しています。
 

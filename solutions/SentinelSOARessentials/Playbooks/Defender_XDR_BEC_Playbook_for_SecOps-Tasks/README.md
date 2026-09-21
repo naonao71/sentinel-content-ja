@@ -1,12 +1,13 @@
-# Defender XDR BEC タスク（統合ポータル対応版）
+# Defender XDR BEC タスク（日本語版）
 
 [Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/SentinelSOARessentials/Playbooks/Defender_XDR_BEC_Playbook_for_SecOps-Tasks) の `Defender_XDR_BEC_Playbook_for_SecOps-Tasks` を、統合ポータル（Microsoft Defender ポータル）で動くように修正したものです。
 
 | 項目 | 値 |
 | --- | --- |
 | 積まれるタスク数 | **8** |
+| 日本語化 | **完了**（タスク名 8 件 / 本文 8 件すべて） |
 | 取り込み日 | 2026 年 9 月 15 日 |
-| 検証 | ✅ 8 タスクの作成を確認 |
+| 検証 | ✅ 8 タスクの作成を確認済み。⚠️ 日本語表示は再デプロイ後に確認 |
 
 ## ファイル
 
@@ -34,9 +35,28 @@
 
 **修正内容**: `<dt>` 内は `◆`、`<dd>` 内は `◇` に置き換え
 
+### 3. 日本語化
+
+タスク名 8 件と本文 8 件を**すべて日本語にしました**。製品名（Microsoft Sentinel / Microsoft Defender XDR / Microsoft Defender for Office 365 / Threat Explorer など）、Advanced Hunting のテーブル名（CloudAppEvents、EmailEvents、UrlClickEvents、AuditLogs）、アクティビティ名（`New-InboxRule`、`Set-Mailbox` など）、URL は原文のまま残しています。
+
+あわせて、本文中の閉じ忘れの `<dt>` を `</dt>` に修正しました。
+
+| 本家 | 日本語版 |
+| --- | --- |
+| Introduction | はじめに |
+| Contain | 封じ込め |
+| Investigation - Step 1 | 調査 - ステップ 1 |
+| Investigation - Step 2 | 調査 - ステップ 2 |
+| Investigation - Step 3 | 調査 - ステップ 3 |
+| Investigation - Step 4 | 調査 - ステップ 4 |
+| Remediation | 修復 |
+| Prevention | 予防 |
+
 ## 積まれるタスク
 
-Introduction / Contain / Investigation Step 1〜4 / Remediation / Prevention
+はじめに / 封じ込め / 調査 - ステップ 1〜4 / 修復 / 予防 = **8 件**
+
+調査の 4 ステップは、ユーザー アカウントの初期侵害経路の特定、調査優先度スコアの確認、ユーザー アクティビティ（受信トレイ ルール、SMTP 転送、デバイス登録、MFA の追加など）の調査、ユーザーが送信したメールの調査という流れです。
 
 ## デプロイ
 

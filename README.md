@@ -2,7 +2,7 @@
 
 Microsoft Sentinel のコンテンツパックを、**統合ポータル（Microsoft Defender ポータル）で動くように修正**し、必要に応じて**日本語化**したものを置いています。
 
-すべて **Microsoft Sentinel をオンボード済みのラボ環境で実機検証**してから公開しています。
+統合ポータル対応の動作修正は、**Microsoft Sentinel をオンボード済みのラボ環境で実機検証**しています。日本語化したJSONは構造・HTML・保護用語を機械検査しています。RansomwareとBECの日本語表示は再デプロイ後の確認待ちです。
 
 ## なぜこのリポジトリがあるのか
 
@@ -18,7 +18,7 @@ Content Hub のコンテンツパックには、**Azure ポータル時代に作
 
 | ソリューション | 状態 | 内容 |
 | --- | --- | --- |
-| [SentinelSOARessentials](solutions/SentinelSOARessentials/) | ✅ 検証済み | タスク化 Playbook 3 本の修正版（Phishing は日本語化済み） |
+| [SentinelSOARessentials](solutions/SentinelSOARessentials/) | ⚠️ 動作修正は検証済み | タスク化 Playbook 3 本（Phishing / Ransomware / BEC）の修正版。**3 本とも日本語化済み**。Ransomware / BEC の日本語表示は再検証待ち |
 
 ## 構成
 
@@ -64,4 +64,4 @@ solutions/
 
 ## 関連記事
 
-- [検知の次を自動化する Microsoft Sentinel「SOAR Essentials」を整理してみた](https://zenn.dev/naonao71)
+- [検知の次を自動化する Microsoft Sentinel「SOAR Essentials」を整理してみた](https://zenn.dev/naonao71/articles/sentinel-soar-essentials-solution)
