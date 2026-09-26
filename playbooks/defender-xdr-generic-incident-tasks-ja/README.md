@@ -39,6 +39,12 @@ Microsoft Defender ポータルのインシデント画面から**オンデマ�
 
 ## デプロイ
 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnaonao71%2Fsentinel-content-ja%2Fmain%2Fplaybooks%2Fdefender-xdr-generic-incident-tasks-ja%2Fazuredeploy.json)
+
+ボタンを選択すると Azure ポータルが開き、デプロイ先のサブスクリプションとリソース グループを指定できます。デプロイ後のロール割り当ては自動では行われないため、続く「必要な権限」を設定してください。
+
+### Azure CLI
+
 ```bash
 az deployment group create \
   --resource-group <リソース グループ> \
