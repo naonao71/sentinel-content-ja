@@ -75,6 +75,12 @@
 
 ## デプロイ
 
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnaonao71%2Fsentinel-content-ja%2Fmain%2Fsolutions%2FSentinelSOARessentials%2FPlaybooks%2FDefender_XDR_Ransomware_Playbook_for_SecOps-Tasks%2Fazuredeploy.json)
+
+ボタンを選択すると Azure ポータルが開き、デプロイ先のサブスクリプションとリソース グループを指定できます。デプロイ後のロール割り当ては自動では行われないため、後述の権限設定を行ってください。
+
+### Azure CLI
+
 ```bash
 az deployment group create \
   --resource-group <リソース グループ> \
